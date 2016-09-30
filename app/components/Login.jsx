@@ -16,9 +16,10 @@ export var Login = React.createClass({
     ev.preventDefault();
     var {dispatch} = this.props;
     var email = this.refs.user_email.value;
+    var name = this.refs.user_name.value;
     var encryptedPassword = crypto.createHash('sha256').update(this.refs.user_password.value).digest('hex');
-    console.log('onRegister called', email, encryptedPassword);
-    dispatch(actions.startRegister(email, encryptedPassword));
+    console.log('onRegister called', email, name, encryptedPassword);
+    dispatch(actions.startRegister(email, encryptedPassword, name));
   },
 
   onLogin(ev) {
@@ -39,21 +40,32 @@ export var Login = React.createClass({
     return (
       <div className="row">
         <div className="col s12">
-          <h2>Login or Register</h2>
+          <h2 tabIndex="1">Login or Register</h2>
           <button className="button" onClick={() => {this.onOauthLogin(githubProvider)}}>Login With GitHub</button>
           <button className="button" onClick={() => {this.onOauthLogin(googleProvider)}}>Login With Google</button>
         </div>
         
         <form className="col s12" autoComplete="on">
           <div className="input-field col s12">
+            <input type="text" 
+              className="validate" 
+              placeholder="" 
+              id="user_name" 
+              ref="user_name" 
+              autofocus="true" 
+              name="name" 
+              autoComplete="name" 
+              required/>
+            <label htmlFor="user_name">Your Name or Username</label>
+          </div>
+          <div className="input-field col s12">
             <input type="email" 
               className="validate" 
               placeholder="" 
               id="user_email" 
               ref="user_email" 
-              autofocus="true" 
-              name="" 
-              autoComplete="" 
+              name="email" 
+              autoComplete="email" 
               required/>
             <label htmlFor="user_email">E-Mail</label>
           </div>
@@ -64,8 +76,8 @@ export var Login = React.createClass({
               placeholder="" 
               id="user_password" 
               ref="user_password" 
-              name="" 
-              autoComplete="" 
+              name="password" 
+              autoComplete="password" 
               required/>
             <label htmlFor="user_password">Password</label>
         	</div>

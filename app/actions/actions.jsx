@@ -94,6 +94,8 @@ export var startToggleTodo = (id, completed) => {
   };
 };
 
+//////////////////////////////////////////////////////
+
 export var login = (uid) => {
   return {
     type: 'LOGIN',
@@ -111,7 +113,7 @@ export var startOauthLogin = (provider) => {
   };
 };
 
-export var startRegister = (email, encryptedPassword) => {
+export var startRegister = (email, encryptedPassword, username) => {
   return (dispatch, getState) => {
     return firebase.auth().createUserWithEmailAndPassword(email, encryptedPassword).catch(function(error) {
       console.log('Unable to Register', error);
@@ -138,6 +140,63 @@ export var startLogout = () => {
   return (dispatch, getState) => {
     return firebase.auth().signOut().then(() => {
       console.log('Logged out!');
+    });
+  };
+};
+
+export var addEvent = (event) => {
+  return {
+    type: 'ADD_EVENT',
+    event
+  };
+};
+
+export var startAddEvent = (title, description, type, address, latLng = '', timeStart, timeEnd, host, guests) => {
+  return (dispatch, getState) => {
+    var event = {
+      title, 
+      description, 
+      type, 
+      address, 
+      latLng, 
+      timeStart, 
+      timeEnd, 
+      host, 
+      guests
+    };
+    
+    var eventSave = dbRef.child('events').push(event);
+    return eventSave.then(() => {
+      dispatch(addEvent(event));
+    });
+  };
+};
+
+
+export var getEvents = (events) => {
+  return {
+    type: 'GET_EVENTS',
+    events
+  };
+};
+
+export var startGetEvents = () => {
+  return (dispatch, getState) => {
+
+    var eventsRef = dbRef.child('events');
+
+    return eventsRef.once('value').then((snapshot) => {
+      var events = snapshot.val() || {};
+      var parsedEvents = [];
+
+      Object.keys(events).forEach((eventId) => {
+        parsedEvents.push({
+          id: eventId,
+          ...events[eventId]
+        });
+      });
+
+      dispatch(getEvents(parsedEvents));
     });
   };
 };

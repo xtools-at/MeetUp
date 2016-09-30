@@ -6,7 +6,7 @@ import router from 'app/router/';
 export var ContentContainer = React.createClass({
     render() {
         return (
-          <main className="col s12 m5">
+          <main className="col s12 m8 l5">
 	        <div className="card-panel">
 	        	{router}
 	        </div>

@@ -10,11 +10,17 @@ export var AddEvent = React.createClass({
 
   initAutocomplete(nextProps){
     var google = nextProps.google;
-    var autocomplete = new google.maps.places.Autocomplete(ReactDOM.findDOMNode(this.refs.event_adress), {types: ['geocode']});
+    var autocomplete = new google.maps.places.Autocomplete(ReactDOM.findDOMNode(this.refs.event_address), {types: ['geocode']});
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
-      if (!place.geometry) {
+      console.log('Place from Autocomplete:', place);
+      if (!place.geometry || place.geometry.viewport) {
         return;
+      } else {
+        //store the coords
+        console.log('Coords from Autocomplete:', place.geometry.location.lat(), place.geometry.location.lng());
+        //latLng = ''+place.geometry.location.lat()+','+place.geometry.location.lng();
+        $('#event_latLng').val(''+place.geometry.location.lat()+','+place.geometry.location.lng());
       }
 
       /*
@@ -42,10 +48,12 @@ export var AddEvent = React.createClass({
     var endTime = this.refs.event_datetime_end.value;
     var endTimeNode = ReactDOM.findDOMNode(this.refs.event_datetime_end);
     //set min-Attribute of EndTime to StartTime
-    $(endTimeNode).attr('min',startTime);
-    //if EndTime < StartTime, reset EndTime to StartTime
-    if (moment(endTime).isBefore(startTime)){
-      $(endTimeNode).val(startTime);
+    if (startTime && startTime != ''){
+      $(endTimeNode).attr('min',startTime);
+      //if EndTime < StartTime, reset EndTime to StartTime
+      if (moment(endTime).isBefore(startTime)){
+        $(endTimeNode).val(startTime);
+      }
     }
   },
 
@@ -56,9 +64,25 @@ export var AddEvent = React.createClass({
     //set max-Attribute of StartTime to EndTime
     $(startTimeNode).attr('max',endTime);
     //if EndTime < StartTime, reset StartTime to EndTime
-    if (!moment(endTime).isBefore(startTime)){
-      $(startTimeNode).val(endTime);
-    }
+    //if (!moment(endTime).isBefore(startTime)){
+      //$(startTimeNode).val(endTime);
+    //}
+  },
+
+  onSubmit(ev) {
+    ev.preventDefault();
+    var {dispatch} = this.props;
+    dispatch(actions.startAddEvent(
+      this.refs.event_title.value, 
+      this.refs.event_description.value, 
+      this.refs.event_type.value, 
+      this.refs.event_address.value, 
+      this.refs.event_latLng.value, 
+      this.refs.event_datetime_start.value, 
+      this.refs.event_datetime_end.value,
+      this.refs.event_host.value, 
+      this.refs.event_guests.value
+    ))
   },
 
   render() {
@@ -66,7 +90,7 @@ export var AddEvent = React.createClass({
     return (
     	<div className="row">
     		<div className="col s12">
-    			<h2>Create Event</h2>
+    			<h2 tabIndex="1">Create Event</h2>
     			<p>...by answering 4 simple questions:</p>
     		</div>
     		<form className="col s12" autoComplete="on">
@@ -75,15 +99,15 @@ export var AddEvent = React.createClass({
     				What?
     			</h3>
     			<div className="input-field col s12">
-     				<input type="text" placeholder="e.g. Udacity Alumni Party" id="event_title" autofocus="true" name="" autoComplete="" required/>
-      			<label htmlFor="event_title">Title of your Event</label>
+     				<input type="text" className="validate" placeholder="e.g. Udacity Alumni Party" id="event_title" ref="event_title" autofocus="true" autoComplete="title" required/>
+      			<label htmlFor="event_title" className="active">Title of your Event</label>
           </div>
           <div className="input-field col s12">
-     				<input type="text" placeholder="The hottest party on this planet" id="event_description" name="" autoComplete="" required/>
-      			<label htmlFor="event_description">Tell me something about your Event</label>
+     				<input type="text" className="validate" placeholder="The hottest party on this planet" id="event_description" ref="event_description" autoComplete="description" required/>
+      			<label htmlFor="event_description" className="active">Tell me something about your Event</label>
      			</div>
           <div className="input-field col s12">
-     				<input type="text" list="event_type_list" placeholder="Party" id="event_type" ref="event_type" className="autocomplete" name="" autoComplete="" required/>
+     				<input type="text" list="event_type_list" placeholder="Party" id="event_type" ref="event_type" className="autocomplete validate" autoComplete="type" required/>
       			<datalist id="event_type_list">
               <option value="Birthday" />
               <option value="Party" />
@@ -93,7 +117,7 @@ export var AddEvent = React.createClass({
               <option value="Conference" />
               <option value="Other" />
             </datalist>
-            <label htmlFor="event_type">Of what type is your Event?</label>
+            <label htmlFor="event_type" className="active">Of what type is your Event?</label>
 				  </div>
 
     			<h3>
@@ -101,8 +125,9 @@ export var AddEvent = React.createClass({
     				Where?
     			</h3>
     			<div className="input-field col s12">
-            <input type="text" placeholder="" id="event_adress" ref="event_adress" name="" autoComplete="" required/>
-            <label htmlFor="event_adress">Location of your event</label>
+            <input className="validate" type="text" placeholder="Just start typing, we've got you covered" id="event_adress" ref="event_address" name="address" autoComplete="street-address" required/>
+            <label htmlFor="event_address" className="active">Location of your event</label>
+            <input type="hidden" id="event_latLng" ref="event_latLng"/>
           </div>
 
     			<h3>
@@ -116,7 +141,6 @@ export var AddEvent = React.createClass({
               min={moment().format('YYYY-MM-DDTHH:mm')} 
               id="event_datetime_start" 
               ref="event_datetime_start" 
-              name="" 
               placeholder="" 
               onChange={this.startDateChanged}
               required/>
@@ -129,11 +153,9 @@ export var AddEvent = React.createClass({
               min={moment().format('YYYY-MM-DDTHH:mm')} 
               id="event_datetime_end" 
               ref="event_datetime_end" 
-              name=""
               placeholder="" 
-              onChange={this.endDateChanged}
-              required/>
-      			<label htmlFor="event_datetime_end" className="active">...and when does it end?</label>
+              onChange={this.endDateChanged}/>
+      			<label htmlFor="event_datetime_end" className="active">...and when does it end? (optional)</label>
    				</div>
 
     			<h3>
@@ -141,15 +163,15 @@ export var AddEvent = React.createClass({
     				Who?
     			</h3>
     			<div className="input-field col s12">
-     				<input type="text" placeholder="" id="event_host" name="name" autoComplete="name" required/>
-      			<label htmlFor="event_host">Who is hosting the event?</label>
+     				<input type="text" className="validate" placeholder="Udacity, Google, ... or Peter" id="event_host" ref="event_host" name="name" autoComplete="name" required/>
+      			<label htmlFor="event_host" className="active">Who is hosting the event?</label>
      			</div>
    				<div className="input-field col s12">
-   					<textarea id="event_guests" className="materialize-textarea" name="" placeholder=""></textarea>
-     				<label htmlFor="event_guests">Who is invited?</label>
+   					<textarea id="event_guests" ref="event_guests" className="materialize-textarea validate" placeholder=""></textarea>
+     				<label htmlFor="event_guests" className="active">Who is invited?</label>
    				</div>
 
-   				<button className="btn waves-effect waves-light" type="submit" name="action">
+   				<button className="btn btn-large waves-effect waves-light" type="submit" name="action" onClick={this.onSubmit}>
    					Add Event
             <i className="material-icons right">send</i>
           </button>
@@ -160,6 +182,6 @@ export var AddEvent = React.createClass({
   }
 });
 
-export default GoogleApiWrapper({
+export default Redux.connect()(GoogleApiWrapper({
   apiKey: 'AIzaSyBDKoNEeqWSY0MzlUyALFAA2x2hexMrEFs'
-})(AddEvent);
+})(AddEvent));

@@ -49,7 +49,7 @@ export var todosReducer = (state = [], action) => {
   }
 };
 
-export var authReducer = (state = {uid: ''}, action) => {
+export var authReducer = (state = {}, action) => {
   switch (action.type) {
     case 'LOGIN':
       return {
@@ -57,6 +57,25 @@ export var authReducer = (state = {uid: ''}, action) => {
       };
     case 'LOGOUT':
       return {};
+    default:
+      return state;
+  }
+};
+
+export var eventsReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_EVENT':
+      return [
+        ...state,
+        action.event
+      ];
+    case 'GET_EVENTS':
+      return [
+        ...state,
+        ...action.events
+      ];
+    case 'LOGOUT':
+      return [];
     default:
       return state;
   }

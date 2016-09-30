@@ -15,13 +15,16 @@ firebase.auth().onAuthStateChanged((user) => {
     store.dispatch(actions.login(user.uid));
     //store.dispatch(actions.startAddTodos());
     //hashHistory.push('/todos');
-    console.log('onAuthStateChanged', user);
+    console.log('onAuthStateChanged, dispatched user.uid', user);
   } else {
     store.dispatch(actions.logout());
     //hashHistory.push('/');
     console.log('onAuthStateChanged','no user, fired logout');
   }
 });
+
+//fetch Events
+store.dispatch(actions.startGetEvents());
 
 
 // App css
