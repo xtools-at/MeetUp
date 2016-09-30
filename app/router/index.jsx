@@ -9,13 +9,15 @@ import firebase from 'app/firebase/';
 var requireLogin = (nextState, replace, next) => {
   if (!firebase.auth().currentUser) {
     replace('/login');
+    console.log('redirect to login');
   }
   next();
 };
 
 var redirectIfLoggedIn = (nextState, replace, next) => {
   if (firebase.auth().currentUser) {
-    replace('/');
+    replace('/add');
+    console.log('already logged in, redirect to home');
   }
   next();
 };
@@ -26,7 +28,7 @@ export default (
       <Route path="login" component={Login} onEnter={redirectIfLoggedIn} />
       <Route path="add" component={AddEvent} onEnter={requireLogin} />
       <Route path="events" component={EventList}/>
-      <IndexRoute component={AddEvent}/>
+      <IndexRoute component={EventList}/>
     </Route>
   </Router>
 );

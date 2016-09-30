@@ -15,7 +15,7 @@ export var Event = React.createClass({
 	      <div className="card-stacked">
 	        <div className="card-content">
 	        	<h3>{title}</h3>
-				<div className="chip">{type}</div>
+				<span className="chip">{type}</span>
 	          	<p>
 	          		<i className="material-icons">account_circle</i>
 	          		by {host}

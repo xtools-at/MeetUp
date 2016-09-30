@@ -1,0 +1,19 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+	Martin Kainzbauer -- Developer -- @xtools_at
+
+# THANKS
+
+    Rob Perceival
+    Andrew Mead
+    Udacity
+
+# TECHNOLOGY COLOPHON
+
+	Node.js, Express.js
+    React, Redux
+    Firebase
+    CSS3, HTML5
+    jQuery, Normalize.css, Materialize.css, Google Maps API

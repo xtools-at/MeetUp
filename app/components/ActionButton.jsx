@@ -3,38 +3,33 @@ import * as Redux from 'react-redux';
 import {hashHistory} from 'react-router';
 
 export var ActionButton = React.createClass({
-    displayName: 'ActionButton',
-
-    onFabClick(isLoggedIn){
-    	if (isLoggedIn){
-    		hashHistory.push('/add');
-    	} else {
-    		hashHistory.push('/login');
-    	}
-    },
 
     render() {
 
-    	function renderFAB() {
-    		if (this.props.isLoggedIn){
-    		    return (
-    			 <a onClick={onFabClick(true)} className="btn-floating btn-large waves-effect waves-light red">
-	             	<i className="material-icons">add</i>
-	             </a>
-    			);
-    		} else {
-    			return (
-    			 <a onClick={onFabClick(false)} className="btn-floating btn-large waves-effect waves-light red">
-	             	<i className="material-icons">account_circle</i>
-	             </a>
-    			);
-    		}
-    	}
+        var route;
+        var icon;
+
+		if (this.props && this.props.auth && this.props.auth.uid){
+            //user is logged in
+            route = '/add';
+            icon = 'add';
+		} else {
+            route = '/login';
+            icon = 'account_circle';
+		}
 
         return (
-            {renderFAB()}
+            <div className="fixed-action-btn">
+                <a onClick={() => {hashHistory.push(route)}} className="btn-floating btn-large orange accent-4 waves-effect waves-light">
+                  <i className="large material-icons">{icon}</i>
+                </a>
+            </div>
         );
     }
 });
 
-export default Redux.connect()(ActionButton);
+export default Redux.connect(
+    (state) => {
+    return state;
+  }
+)(ActionButton);

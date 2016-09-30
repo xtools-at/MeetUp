@@ -1,0 +1,33 @@
+.row.overall-container {
+	height: 100vh;
+	margin-bottom:0;
+}
+
+
+header {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	z-index:10;
+	width:100px;
+	margin:0 auto;
+	
+	h1 {
+		font-size: 22px;
+		font-weight:bold;
+		text-align:center;
+		margin: 22px 0 0 0;
+		text-shadow: 2px 2px 2px #fff;
+
+		a {
+			color: $primary;
+		}
+	}
+}
+
+
+footer {
+	height: 25px;
+	background-color: $primary
+}

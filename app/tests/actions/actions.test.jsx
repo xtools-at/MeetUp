@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 var expect = require('expect');
 
-import firebase, {firebaseRef} from 'app/firebase/';
+import firebase, {dbRef} from 'app/firebase/';
 var actions = require('actions');
 
 var createMockStore = configureMockStore([thunk]);
@@ -99,7 +99,7 @@ describe('Actions', () => {
 
       firebase.auth().signInWithCredential(credential).then((user) => {
         uid = user.uid;
-        todosRef = firebaseRef.child(`users/${uid}/todos`);
+        todosRef = dbRef.child(`users/${uid}/todos`);
 
         return todosRef.remove();
       }).then(() => {

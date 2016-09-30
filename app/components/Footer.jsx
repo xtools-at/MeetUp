@@ -1,9 +1,15 @@
-var React = require('react');
+import React from 'react';
+import * as actions from 'actions';
+//import * as Redux from 'react-redux';
 
-var Footer = React.createClass({
+export var Footer = React.createClass({
+	onLogout(){
+		var {dispatch} = this.props;
+		//dispatch(actions.startLogout());
+	},
     render() {
         return (
-            <footer>Footer</footer>
+            <footer className="col s12 blue" onClick={this.onLogout}>Footer</footer>
         );
     }
 });

@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 const mapStyles = {
   container: {
     position: 'relative',
-    height: '100%'
+    height: 'calc(100% - 25px)'
   },
   map: {
     position: 'absolute',

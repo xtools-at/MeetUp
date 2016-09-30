@@ -5,8 +5,9 @@ import * as actions from 'actions';
 
 export var EventList = React.createClass({
   render() {
+  	var {events} = this.props;
     return (
-    	var {events} = this.props;
+    	<div>List</div>
     )
   }
 });

@@ -10,9 +10,10 @@ try {
 
   firebase.initializeApp(config);
 } catch (e) {
-
+	console.log('Firebase setup failed');
 }
 
 export var githubProvider = new firebase.auth.GithubAuthProvider();
-export var firebaseRef = firebase.database().ref();
+export var googleProvider = new firebase.auth.GoogleAuthProvider();
+export var dbRef = firebase.database().ref();
 export default firebase;

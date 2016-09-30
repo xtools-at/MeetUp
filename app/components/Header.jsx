@@ -1,9 +1,13 @@
-var React = require('react');
+import React from 'react';
 
-var Header = React.createClass({
+export var Header = React.createClass({
     render() {
         return (
-            <header>Header</header>
+            <header>
+			    <h1>
+			      	<a href="/">MeetUp</a>
+			    </h1>
+            </header>
         );
     }
 });

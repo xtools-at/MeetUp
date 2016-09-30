@@ -1,17 +1,16 @@
 import React from 'react';
-import router from 'app/router/';
 import * as Redux from 'react-redux';
+
+import router from 'app/router/';
 
 export var ContentContainer = React.createClass({
     render() {
         return (
-             <main className="row">
-		      <div className="col s12 m5">
-		        <div className="card-panel">
-		        	{router}
-		        </div>
-		      </div>
-		    </main>
+          <main className="col s12 m5">
+	        <div className="card-panel">
+	        	{router}
+	        </div>
+		  </main>
         );
     }
 });

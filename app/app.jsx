@@ -12,12 +12,14 @@ import firebase from 'app/firebase/';
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    //store.dispatch(actions.login(user.uid));
+    store.dispatch(actions.login(user.uid));
     //store.dispatch(actions.startAddTodos());
     //hashHistory.push('/todos');
+    console.log('onAuthStateChanged', user);
   } else {
-    //store.dispatch(actions.logout());
+    store.dispatch(actions.logout());
     //hashHistory.push('/');
+    console.log('onAuthStateChanged','no user, fired logout');
   }
 });
 

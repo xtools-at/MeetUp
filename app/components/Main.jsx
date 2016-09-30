@@ -29,9 +29,6 @@ export var Main = React.createClass({
 	},
 	
     render() {
-    	const style = {
-    	  height: '100vh'
-   		};
 
    		function renderMarkers() {
    			var locs = [
@@ -60,7 +57,7 @@ export var Main = React.createClass({
    		}
 
         return (
-           	<div style={style}>
+           	<div className="row overall-container">
            		<Header />
         		<Map google={this.props.google}>
         			{renderMarkers()}

@@ -1,6 +1,7 @@
 import moment from 'moment';
+//import crypto from 'crypto';
 
-import firebase, {firebaseRef, githubProvider} from 'app/firebase/';
+import firebase, {dbRef, githubProvider} from 'app/firebase/';
 
 export var setSearchText = (searchText) => {
   return {
@@ -31,7 +32,7 @@ export var startAddTodo = (text) => {
       completedAt: null
     };
     var uid = getState().auth.uid;
-    var todoRef = firebaseRef.child(`users/${uid}/todos`).push(todo);
+    var todoRef = dbRef.child(`users/${uid}/todos`).push(todo);
 
     return todoRef.then(() => {
       dispatch(addTodo({
@@ -52,7 +53,7 @@ export var addTodos = (todos) => {
 export var startAddTodos = () => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
-    var todosRef = firebaseRef.child(`users/${uid}/todos`);
+    var todosRef = dbRef.child(`users/${uid}/todos`);
 
     return todosRef.once('value').then((snapshot) => {
       var todos = snapshot.val() || {};
@@ -81,7 +82,7 @@ export var updateTodo = (id, updates) => {
 export var startToggleTodo = (id, completed) => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
-    var todoRef = firebaseRef.child(`users/${uid}/todos/${id}`);
+    var todoRef = dbRef.child(`users/${uid}/todos/${id}`);
     var updates = {
       completed,
       completedAt: completed ? moment().unix() : null
@@ -100,12 +101,29 @@ export var login = (uid) => {
   };
 };
 
-export var startLogin = () => {
+export var startOauthLogin = (provider) => {
   return (dispatch, getState) => {
-    return firebase.auth().signInWithPopup(githubProvider).then((result) => {
-      console.log('Auth worked!', result);
+    return firebase.auth().signInWithPopup(provider).then((result) => {
+      console.log('Auth worked', result);
     }, (error) => {
-      console.log('Unable to auth', error);
+      console.log('Unable to Oauth', error);
+    });
+  };
+};
+
+export var startRegister = (email, encryptedPassword) => {
+  return (dispatch, getState) => {
+    return firebase.auth().createUserWithEmailAndPassword(email, encryptedPassword).catch(function(error) {
+      console.log('Unable to Register', error);
+    });
+  };
+};
+
+
+export var startLogin = (email, encryptedPassword) => {
+  return (dispatch, getState) => {
+    return firebase.auth().signInWithEmailAndPassword(email, encryptedPassword).catch(function(error) {
+      console.log('Unable to Login', error);
     });
   };
 };
