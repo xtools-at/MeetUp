@@ -20,7 +20,8 @@ export var AddEvent = React.createClass({
       } else {
         //check if the location is accurate
         if (place.geometry.viewport) {
-          Materialize.toast('A bit more accurate please! Try adding Street, Housenumber or ZipCode', 3000);
+          //not accurate enough!
+          //Materialize.toast('A bit more accurate please! Try adding Street, Housenumber or ZipCode', 3000);
         }
         //store the coords
         console.log('Coords from Autocomplete:', place.geometry.location.lat(), place.geometry.location.lng());
@@ -186,7 +187,7 @@ export var AddEvent = React.createClass({
       			<label htmlFor="event_host" className="active">Who is hosting the event?</label>
      			</div>
    				<div className="input-field col s12">
-   					<textarea id="event_guests" ref="event_guests" className="materialize-textarea validate" placeholder="William Shatner and Leonard Nimoy ... or Sue and Kate "></textarea>
+   					<textarea id="event_guests" ref="event_guests" className="materialize-textarea validate" placeholder="William Shatner and Richard Dean Anderson ... or Sue and Kate "></textarea>
      				<label htmlFor="event_guests" className="active">Who is invited? (optional)</label>
    				</div>
 

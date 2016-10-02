@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Redux from 'react-redux';
-import sideNav from 'materialize-css/dist/js/materialize.min';
 import firebase from 'app/firebase/';
+import sideNav from 'materialize-css/dist/js/materialize.min'
 //import {hashHistory} from 'react-router';
 
 import * as actions from 'actions';

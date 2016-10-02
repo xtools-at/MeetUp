@@ -43,16 +43,6 @@ export var Login = React.createClass({
   render() {
     var {login} = this.props.route;
     var heading,subText,usernameInput,button,additionalInfosToggle, additionalFields, autofocusEmail;
-
-    if (this.props.additionalFields){
-      additionalFields=(
-        <div>
-          Add Fields
-        </div>
-      );
-    } else {
-      additionalFields='';
-    }
     
 
     if (login) {
@@ -69,6 +59,7 @@ export var Login = React.createClass({
       );
       additionalInfosToggle = '';
       autofocusEmail='true';
+      additionalFields='';
 
     } else {
       heading = 'Register';
@@ -98,13 +89,70 @@ export var Login = React.createClass({
       additionalInfosToggle = (
         <div className="switch">
           <label htmlFor="register_infos">
-            <input id="register_infos" type="checkbox" onChange={this.onToggleAdditionalFields}></input>
+            <input id="register_infos" type="checkbox" checked={this.props.additionalFields} onChange={this.onToggleAdditionalFields}></input>
             <span className="lever"></span>
             Tell us more about you! (optional)
           </label>
         </div>
       );
       autofocusEmail='false';
+      if (this.props.additionalFields){
+        additionalFields=(
+          <div>
+
+            <div className="input-field col s12">
+              <input type="text" id="add_employer" placeholder="Google" className="validate"/>
+              <label htmlFor="add_employer" className="active">Employer</label>
+            </div>
+
+            <div className="input-field col s12">
+              <input type="text" id="add_jobtitle" placeholder="Senior Web Developer" className="validate"/>
+              <label htmlFor="add_jobtitle" className="active">Job Title</label>
+            </div>
+
+            <div className="input-field col s12">
+              <input type="date" 
+                className="validate" 
+                defaultValue="1980-01-01" 
+                id="add_birthday" 
+                placeholder="" 
+                onChange={this.startDateChanged}
+                required/>
+              <label htmlFor="add_birthday" className="active">When is your Birthday</label>
+            </div>
+
+            <div className="input-field col s12">
+              <input type="text" list="add_starwars_list" id="add_starwars" placeholder="Return of the Jedi" className="validate"/>
+              <datalist id="add_starwars_list">
+                <option value="Star Wars" />
+                <option value="The Empire Strikes Back" />
+                <option value="Return of the Jedi" />
+                <option value="The Phantom Menace" />
+                <option value="Attack of the Clones" />
+                <option value="Revenge of the Sith" />
+                <option value="The Force Awakens" />
+                <option value="really??" />
+              </datalist>
+              <label htmlFor="add_starwars" className="active">Favourite Star Wars Movie?</label>
+            </div>
+
+            <div className="input-field col s12">
+              <input type="text" list="add_tabs_list" id="add_tabs" placeholder="Tabs" className="validate"/>
+              <datalist id="add_tabs_list">
+                <option value="Tabs" />
+                <option value="Tabs!!!" />
+                <option value="Spaces" />
+                <option value="Semicolons" />
+                <option value="Oh come on..." />
+              </datalist>
+              <label htmlFor="add_tabs" className="active">Tabs or Spaces</label>
+            </div>
+            
+          </div>
+        );
+      } else {
+        additionalFields='';
+      }
     }
 
 
