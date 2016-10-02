@@ -7,32 +7,29 @@ import * as actions from 'actions';
 export var Event = React.createClass({
   render() {
 
-  	var {title, description, type, address, latLng, timeStart, host} = this.props;
+  	var {title, description, type, address, lat, lng, timeStart, host, userLat, userLng} = this.props;
   	timeStart = moment(timeStart).format('D.MMM.\'YY @ HH:mm');
-
-  	Number.prototype.toRad = function() {
-   		return this * Math.PI / 180;
-	}
 
 	function calculateDistanceInKm(lat1, lon1, lat2, lon2){
 		var R = 6371; //km
+		var toRad = Math.PI / 180;
 		var x1 = lat2-lat1;
-		var dLat = x1.toRad();  
+		var dLat = x1*toRad;  
 		var x2 = lon2-lon1;
-		var dLon = x2.toRad();  
+		var dLon = x2*toRad;  
 		var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-		                Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+		                Math.cos(lat1*toRad) * Math.cos(lat2*toRad) * 
 		                Math.sin(dLon/2) * Math.sin(dLon/2);  
 		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 		var d = R * c; 
 
-		return(d);
+		return(parseInt(d));
 	}
 
 	function showLocationElement() {
-		if (latLng != ''){
-			var latLngArray = latLng.split(',');
-			var distance = calculateDistanceInKm(latLngArray[0],latLngArray[1], 37.778519, -122.405640);
+		console.log("Event LatLng:",lat, lng, userLat, userLng);
+		if (typeof lat != 'undefined' && typeof lng != 'undefined' && lat != '' && lng != ''){
+			var distance = calculateDistanceInKm(lat, lng, userLat, userLng);
 			return (
 				<span className="chip">~{distance}km away from you</span>
 			);
@@ -50,7 +47,7 @@ export var Event = React.createClass({
 	      </div>
 	      <div className="card-stacked">
 	        <div className="card-content">
-	        	<h3>{title}</h3>
+	        	<h2>{title}</h2>
 				<span className="chip">{type}</span>
 	          	<p>
 	          		<i className="material-icons">account_circle</i>
@@ -59,7 +56,7 @@ export var Event = React.createClass({
 	          	<p>
 	          		<i className="material-icons">location_on</i>
 	          		{address}
-	          		{this.showLocationElement}
+	          		{showLocationElement()}
 	          	</p>
 	          	<p>
 	          		<i className="material-icons">access_time</i>

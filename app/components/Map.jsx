@@ -2,19 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 //import { camelize, makeCancelable } from 'google-maps-react'
 
-const mapStyles = {
-  container: {
-    position: 'relative',
-    height: 'calc(100% - 25px)'
-  },
-  map: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    top: 0
-  }
-}
 
 const evtNames = ['ready', 'click', 'dragend', 'recenter'];
 
@@ -171,16 +158,10 @@ export class Map extends React.Component {
     }
 
     render() {
-      const style = Object.assign({}, mapStyles.map, this.props.style, {
-        display: this.props.visible ? 'inherit' : 'none'
-      });
-
-      const containerStyles = Object.assign({},
-        mapStyles.container, this.props.containerStyle)
 
       return (
-        <div style={containerStyles} className={this.props.className}>
-          <div style={style} ref='map'>
+        <div id="map-container">
+          <div ref='map' id="map">
             Loading map...
           </div>
           {this.renderChildren()}

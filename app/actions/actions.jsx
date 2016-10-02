@@ -1,101 +1,11 @@
 import moment from 'moment';
-//import crypto from 'crypto';
+import axios from 'axios';
+var {hashHistory} = require('react-router');
 
-import firebase, {dbRef, githubProvider} from 'app/firebase/';
+import firebase, {dbRef} from 'app/firebase/';
 
-export var setSearchText = (searchText) => {
-  return {
-    type: 'SET_SEARCH_TEXT',
-    searchText
-  };
-};
 
-export var toggleShowCompleted = () => {
-  return {
-    type: 'TOGGLE_SHOW_COMPLETED'
-  };
-};
-
-export var addTodo = (todo) => {
-  return {
-    type: 'ADD_TODO',
-    todo
-  };
-};
-
-export var startAddTodo = (text) => {
-  return (dispatch, getState) => {
-    var todo = {
-      text,
-      completed: false,
-      createdAt: moment().unix(),
-      completedAt: null
-    };
-    var uid = getState().auth.uid;
-    var todoRef = dbRef.child(`users/${uid}/todos`).push(todo);
-
-    return todoRef.then(() => {
-      dispatch(addTodo({
-        ...todo,
-        id: todoRef.key
-      }));
-    });
-  };
-};
-
-export var addTodos = (todos) => {
-  return {
-    type: 'ADD_TODOS',
-    todos
-  };
-};
-
-export var startAddTodos = () => {
-  return (dispatch, getState) => {
-    var uid = getState().auth.uid;
-    var todosRef = dbRef.child(`users/${uid}/todos`);
-
-    return todosRef.once('value').then((snapshot) => {
-      var todos = snapshot.val() || {};
-      var parsedTodos = [];
-
-      Object.keys(todos).forEach((todoId) => {
-        parsedTodos.push({
-          id: todoId,
-          ...todos[todoId]
-        });
-      });
-
-      dispatch(addTodos(parsedTodos));
-    });
-  };
-};
-
-export var updateTodo = (id, updates) => {
-  return {
-    type: 'UPDATE_TODO',
-    id,
-    updates
-  };
-};
-
-export var startToggleTodo = (id, completed) => {
-  return (dispatch, getState) => {
-    var uid = getState().auth.uid;
-    var todoRef = dbRef.child(`users/${uid}/todos/${id}`);
-    var updates = {
-      completed,
-      completedAt: completed ? moment().unix() : null
-    };
-
-    return todoRef.update(updates).then(() => {
-      dispatch(updateTodo(id, updates));
-    });
-  };
-};
-
-//////////////////////////////////////////////////////
-
+//Auth
 export var login = (uid) => {
   return {
     type: 'LOGIN',
@@ -115,11 +25,29 @@ export var startOauthLogin = (provider) => {
 
 export var startRegister = (email, encryptedPassword, username) => {
   return (dispatch, getState) => {
-    return firebase.auth().createUserWithEmailAndPassword(email, encryptedPassword).catch(function(error) {
+    return firebase.auth().createUserWithEmailAndPassword(email, encryptedPassword).then(
+      ()=>{
+        dispatch(saveUsername(username));
+      },
+      (error)=>{
+        console.log('Unable to Register', error);
+      },
+      ).catch(function(error) {
       console.log('Unable to Register', error);
     });
   };
 };
+
+export var saveUsername = (username) => {
+  var user = firebase.auth().currentUser;
+  user.updateProfile({
+    displayName: username,
+  }).then(function() {
+    console.log('saved displayName to DB');
+  }, function(error) {
+    console.log('Error saving displayName to DB', error);
+  });
+}
 
 
 export var startLogin = (email, encryptedPassword) => {
@@ -144,6 +72,36 @@ export var startLogout = () => {
   };
 };
 
+
+//Store custom Data
+export var storeLocation = (lat, lng) => {
+  return {
+    type: 'STORE_LOCATION',
+    userLat: lat,
+    userLng: lng
+  };
+};
+
+/*
+export var fetchIpLocation = () => {
+  return (dispatch, getState) => {
+    var coords = axios.get('http://ipinfo.io');
+    return coords.then((res) => {
+      if (res.data.loc){
+        try{
+          var latLngArray = res.data.loc.split(',');
+
+          dispatch(storeLocation(latLngArray[0],latLngArray[1]));
+        } catch (e){
+          console.log(e);
+        }
+      }
+    });
+  };
+}
+*/
+
+//Add Events
 export var addEvent = (event) => {
   return {
     type: 'ADD_EVENT',
@@ -151,14 +109,15 @@ export var addEvent = (event) => {
   };
 };
 
-export var startAddEvent = (title, description, type, address, latLng = '', timeStart, timeEnd, host, guests) => {
+export var startAddEvent = (title, description, type, address, lat = '',lng = '', timeStart, timeEnd, host, guests) => {
   return (dispatch, getState) => {
     var event = {
       title, 
       description, 
       type, 
       address, 
-      latLng, 
+      lat,
+      lng, 
       timeStart, 
       timeEnd, 
       host, 
@@ -168,6 +127,7 @@ export var startAddEvent = (title, description, type, address, latLng = '', time
     var eventSave = dbRef.child('events').push(event);
     return eventSave.then(() => {
       dispatch(addEvent(event));
+      hashHistory.push('/');
     });
   };
 };
@@ -198,5 +158,11 @@ export var startGetEvents = () => {
 
       dispatch(getEvents(parsedEvents));
     });
+  };
+};
+
+export var toggleAdditionalFields = () => {
+  return {
+    type: 'TOGGLE_SHOW'
   };
 };

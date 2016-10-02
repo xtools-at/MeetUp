@@ -14,11 +14,11 @@ firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     store.dispatch(actions.login(user.uid));
     //store.dispatch(actions.startAddTodos());
-    //hashHistory.push('/todos');
+    hashHistory.push('/');
     console.log('onAuthStateChanged, dispatched user.uid', user);
   } else {
     store.dispatch(actions.logout());
-    //hashHistory.push('/');
+    hashHistory.push('/');
     console.log('onAuthStateChanged','no user, fired logout');
   }
 });
@@ -32,7 +32,7 @@ require('style!css!sass!applicationStyles')
 
 ReactDOM.render(
   <Provider store={store}>
-    <Main />
+    <Main/>
   </Provider>,
   document.getElementById('app')
 );

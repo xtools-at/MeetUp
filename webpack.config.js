@@ -21,7 +21,8 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       '$': 'jquery',
-      'jQuery': 'jquery'
+      'jQuery': 'jquery',
+      'Materialize': 'materialize-css/dist/js/materialize.min'
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
@@ -48,7 +49,6 @@ module.exports = {
     modulesDirectories: [
       'node_modules',
       './app/components',
-      './app/api'
     ],
     alias: {
       app: 'app',
@@ -73,7 +73,7 @@ module.exports = {
   },
   sassLoader: {
     includePaths: [
-      //path.resolve(__dirname, './node_modules/foundation-sites/scss')
+      path.resolve(__dirname, './node_modules/materialize-css/sass')
     ]
   },
   devtool: process.env.NODE_ENV === 'production' ? undefined : 'cheap-module-eval-source-map'

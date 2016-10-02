@@ -5,24 +5,35 @@ import Event from 'Event';
 
 export var EventList = React.createClass({
   render() {
-    var {events} = this.props;
+    var {events, storage} = this.props;
     var renderEvents = () => {
 
       if (events.length === 0) {
         return (
-          <p className="test">Loading Events</p>
+          <div className="preloader-wrapper big active">
+	          <div className="spinner-layer spinner-blue">
+	            <div className="circle-clipper left">
+	              <div className="circle"></div>
+	            </div><div className="gap-patch">
+	              <div className="circle"></div>
+	            </div><div className="circle-clipper right">
+	              <div className="circle"></div>
+	            </div>
+	          </div>
+	        </div>
         );
       }
 
       return events.map((event) => {
         return (
-          <Event key={event.id} {...event}/>
+          <Event key={event.id} userLat={storage.userLat} userLng={storage.userLng} {...event}/>
         );
       });
     };
 
     return (
       <div>
+        <h1 className="center">Events near you</h1>
         {renderEvents()}
       </div>
     )

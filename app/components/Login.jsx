@@ -1,15 +1,24 @@
 import React from 'react';
 import * as Redux from 'react-redux';
 import crypto from 'crypto';
-import {githubProvider, googleProvider} from 'app/firebase/';
+//import {githubProvider, googleProvider} from 'app/firebase/';
 
 import * as actions from 'actions';
 
 export var Login = React.createClass({
 
   onOauthLogin(provider) {
+    /*
     var {dispatch} = this.props;
     dispatch(actions.startOauthLogin(provider));
+    //onClick={() => {this.onOauthLogin(githubProvider)}}
+    */
+  },
+
+  onToggleAdditionalFields(){
+    console.log('onToggleAdditionalFields');
+    var {dispatch} = this.props;
+    dispatch(actions.toggleAdditionalFields());
   },
 
   onRegister(ev) {
@@ -31,72 +40,114 @@ export var Login = React.createClass({
     dispatch(actions.startLogin(email, encryptedPassword));
   },
 
-  onLogout(){
-    var {dispatch} = this.props;
-    dispatch(actions.startLogout());
-  },
-
   render() {
+    var {login} = this.props.route;
+    var heading,subText,usernameInput,button,additionalInfosToggle, additionalFields, autofocusEmail;
+
+    if (this.props.additionalFields){
+      additionalFields=(
+        <div>
+          Add Fields
+        </div>
+      );
+    } else {
+      additionalFields='';
+    }
+    
+
+    if (login) {
+      heading = 'Login';
+      subText = (
+        <p className="center">Do not have an account yet? <a href="#/register">Register here</a>!</p>
+      );
+      usernameInput = '';
+      button = (
+          <button className="btn btn-large waves-effect waves-light" type="submit" onClick={this.onLogin} name="action">
+            Login
+            <i className="material-icons right">send</i>
+          </button>
+      );
+      additionalInfosToggle = '';
+      autofocusEmail='true';
+
+    } else {
+      heading = 'Register';
+      subText = (
+        <p className="center">Already have an account? <a href="#/login">Login</a> instead!</p>
+      );
+      usernameInput = (
+        <div className="input-field col s12">
+            <input type="text" 
+              className="validate" 
+              placeholder="Guybrush Threepwood or Frank-the-Tank" 
+              id="user_name" 
+              ref="user_name" 
+              name="name" 
+              autoComplete="name"
+              autoFocus="true" 
+              required/>
+            <label htmlFor="user_name" className="active">Your Name or Username</label>
+          </div>
+      );
+      button = (
+          <button className="btn btn-large waves-effect waves-light" type="submit" onClick={this.onRegister} name="action">
+            Register
+            <i className="material-icons right">send</i>
+          </button>
+      );
+      additionalInfosToggle = (
+        <div className="switch">
+          <label htmlFor="register_infos">
+            <input id="register_infos" type="checkbox" onChange={this.onToggleAdditionalFields}></input>
+            <span className="lever"></span>
+            Tell us more about you! (optional)
+          </label>
+        </div>
+      );
+      autofocusEmail='false';
+    }
+
+
+
+
     return (
       <div className="row">
         <div className="col s12">
-          <h2 tabIndex="1">Login or Register</h2>
-          <button className="button" onClick={() => {this.onOauthLogin(githubProvider)}}>Login With GitHub</button>
-          <button className="button" onClick={() => {this.onOauthLogin(googleProvider)}}>Login With Google</button>
+          <h1 tabIndex="1" className="center">{heading}</h1>
+          {subText}
         </div>
         
         <form className="col s12" autoComplete="on">
-          <div className="input-field col s12">
-            <input type="text" 
-              className="validate" 
-              placeholder="" 
-              id="user_name" 
-              ref="user_name" 
-              autofocus="true" 
-              name="name" 
-              autoComplete="name" 
-              required/>
-            <label htmlFor="user_name">Your Name or Username</label>
-          </div>
+          {usernameInput}
           <div className="input-field col s12">
             <input type="email" 
               className="validate" 
-              placeholder="" 
+              placeholder="foo@bar.com" 
               id="user_email" 
               ref="user_email" 
               name="email" 
               autoComplete="email" 
+              autoFocus={autofocusEmail} 
               required/>
-            <label htmlFor="user_email">E-Mail</label>
+            <label htmlFor="user_email" className="active">E-Mail</label>
           </div>
           <div className="input-field col s12">
             <input type="password"
               className="validate" 
               pattern="^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$"  
-              placeholder="" 
+              placeholder="**********" 
               id="user_password" 
               ref="user_password" 
               name="password" 
               autoComplete="password" 
               required/>
-            <label htmlFor="user_password">Password</label>
+            <label htmlFor="user_password" className="active">Password</label>
         	</div>
-
-        	<button className="btn waves-effect waves-light" type="submit" onClick={this.onRegister} name="action">
-            Register
-            <i className="material-icons right">send</i>
-          </button>
-
-          <button className="btn waves-effect waves-light" type="submit" onClick={this.onLogin} name="action">
-            Login
-            <i className="material-icons right">send</i>
-          </button>
-
-          <button className="btn waves-effect waves-light" type="submit" onClick={this.onLogout} name="action">
-            Logout
-            <i className="material-icons right">send</i>
-          </button>
-
+          {additionalInfosToggle}
+          {additionalFields}
+          <div className="center">
+            {button}
+          </div>
         </form>
 
       </div>
@@ -105,4 +156,8 @@ export var Login = React.createClass({
 });
 
 
-export default Redux.connect()(Login);
+export default Redux.connect(
+    (state) => {
+    return state;
+  }
+)(Login);

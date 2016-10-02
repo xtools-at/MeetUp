@@ -1,9 +1,12 @@
-var React = require('react');
+import React from 'react';
+import * as Redux from 'react-redux';
 import {GoogleApiWrapper, Marker} from 'google-maps-react';
-var axios = require('axios');
+import axios from 'axios';
 
-var Header = require('Header');
-var Footer = require('Footer');
+import actions from 'actions';
+
+import Header from 'Header';
+import Footer from 'Footer';
 import Map from 'Map';
 import ContentContainer from 'ContentContainer';
 import ActionButton from 'ActionButton';
@@ -11,21 +14,37 @@ import ActionButton from 'ActionButton';
 export var Main = React.createClass({
 
 	componentDidMount() {
-		axios.get('http://ipinfo.io').then(function (res) {
-			if (res.data.loc){
-				//dispatch res.data.loc as userLocation  //=> "48.2000,16.3667"
-			} else {
-				//error
-			}
-	    }, function (res) {
-	      //error
-	    });
+			var dispatch = this.props.dispatch;
+	    	var coords = axios.get('http://ipinfo.io').then((res) => {
+	    		console.log(res.data);
+		      if (res.data.loc){
+		        try{
+		          var latLngArray = res.data.loc.split(',');
+
+		          dispatch(
+		          	{
+					    type: 'STORE_LOCATION',
+					    userLat: latLngArray[0],
+					    userLng: latLngArray[1]
+					 }
+		          );
+		        } catch (e){
+		          console.log(e);
+		        }
+		      }
+	   		})
 	},
 
+
 	componentWillReceiveProps(nextProps) {
+
 	    if (this.props.google != nextProps.google){
 	    	//dispatch google object
-	    }  
+	    }
+
+	    if (true){
+
+		}
 	},
 	
     render() {
@@ -70,7 +89,6 @@ export var Main = React.createClass({
     }
 });
 
-//module.exports = Main;
-export default GoogleApiWrapper({
+export default Redux.connect()(GoogleApiWrapper({
   apiKey: 'AIzaSyBDKoNEeqWSY0MzlUyALFAA2x2hexMrEFs'
-})(Main);
+})(Main));

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import * as Redux from 'react-redux';
 import moment from 'moment';
 import {GoogleApiWrapper} from 'google-maps-react';
+import firebase from 'app/firebase/';
 
 import * as actions from 'actions';
 
@@ -14,13 +15,18 @@ export var AddEvent = React.createClass({
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
       console.log('Place from Autocomplete:', place);
-      if (!place.geometry || place.geometry.viewport) {
+      if (!place.geometry){
         return;
       } else {
+        //check if the location is accurate
+        if (place.geometry.viewport) {
+          Materialize.toast('A bit more accurate please! Try adding Street, Housenumber or ZipCode', 3000);
+        }
         //store the coords
         console.log('Coords from Autocomplete:', place.geometry.location.lat(), place.geometry.location.lng());
         //latLng = ''+place.geometry.location.lat()+','+place.geometry.location.lng();
-        $('#event_latLng').val(''+place.geometry.location.lat()+','+place.geometry.location.lng());
+        $('#event_lat').val(''+place.geometry.location.lat());
+        $('#event_lng').val(''+place.geometry.location.lng());
       }
 
       /*
@@ -36,6 +42,17 @@ export var AddEvent = React.createClass({
         position: place.geometry.location
       })
       */
+
+
+      $('#event_address').autocomplete({
+        data: {
+          "Apple": null,
+          "Microsoft": null,
+          "Google": 'http://placehold.it/250x250'
+        }
+      });
+        
+
     })
   },
 
@@ -77,7 +94,8 @@ export var AddEvent = React.createClass({
       this.refs.event_description.value, 
       this.refs.event_type.value, 
       this.refs.event_address.value, 
-      this.refs.event_latLng.value, 
+      this.refs.event_lat.value, 
+      this.refs.event_lng.value, 
       this.refs.event_datetime_start.value, 
       this.refs.event_datetime_end.value,
       this.refs.event_host.value, 
@@ -90,16 +108,16 @@ export var AddEvent = React.createClass({
     return (
     	<div className="row">
     		<div className="col s12">
-    			<h2 tabIndex="1">Create Event</h2>
-    			<p>...by answering 4 simple questions:</p>
+    			<h1 tabIndex="1" className="center">Create Event</h1>
+    			<p className="center">...by answering 4 simple questions:</p>
     		</div>
     		<form className="col s12" autoComplete="on">
-    			<h3>
+    			<h2>
     				<i className="material-icons prefix">event_note</i>
     				What?
-    			</h3>
+    			</h2>
     			<div className="input-field col s12">
-     				<input type="text" className="validate" placeholder="e.g. Udacity Alumni Party" id="event_title" ref="event_title" autofocus="true" autoComplete="title" required/>
+     				<input type="text" className="validate" placeholder="e.g. Udacity Alumni Party" id="event_title" ref="event_title" autoFocus="true" autoComplete="title" required/>
       			<label htmlFor="event_title" className="active">Title of your Event</label>
           </div>
           <div className="input-field col s12">
@@ -120,20 +138,21 @@ export var AddEvent = React.createClass({
             <label htmlFor="event_type" className="active">Of what type is your Event?</label>
 				  </div>
 
-    			<h3>
+    			<h2>
     				<i className="material-icons prefix">location_on</i>
     				Where?
-    			</h3>
+    			</h2>
     			<div className="input-field col s12">
-            <input className="validate" type="text" placeholder="Just start typing, we've got you covered" id="event_adress" ref="event_address" name="address" autoComplete="street-address" required/>
+            <input className="validate" type="text" placeholder="Just start typing, we've got you covered" id="event_address" ref="event_address" name="address" autoComplete="street-address" required/>
             <label htmlFor="event_address" className="active">Location of your event</label>
-            <input type="hidden" id="event_latLng" ref="event_latLng"/>
+            <input type="hidden" id="event_lat" ref="event_lat"/>
+            <input type="hidden" id="event_lng" ref="event_lng"/>
           </div>
 
-    			<h3>
+    			<h2>
     				<i className="material-icons prefix">access_time</i>
     				When?
-    			</h3>
+    			</h2>
     			<div className="input-field col s12">
      				<input type="datetime-local" 
               className="validate" 
@@ -158,17 +177,17 @@ export var AddEvent = React.createClass({
       			<label htmlFor="event_datetime_end" className="active">...and when does it end? (optional)</label>
    				</div>
 
-    			<h3>
+    			<h2>
     				<i className="material-icons prefix">supervisor_account</i>
     				Who?
-    			</h3>
+    			</h2>
     			<div className="input-field col s12">
-     				<input type="text" className="validate" placeholder="Udacity, Google, ... or Peter" id="event_host" ref="event_host" name="name" autoComplete="name" required/>
+     				<input type="text" className="validate" defaultValue={firebase.auth().currentUser.displayName} placeholder="Udacity, Google, ... or Peter" id="event_host" ref="event_host" name="name" autoComplete="name" required/>
       			<label htmlFor="event_host" className="active">Who is hosting the event?</label>
      			</div>
    				<div className="input-field col s12">
-   					<textarea id="event_guests" ref="event_guests" className="materialize-textarea validate" placeholder=""></textarea>
-     				<label htmlFor="event_guests" className="active">Who is invited?</label>
+   					<textarea id="event_guests" ref="event_guests" className="materialize-textarea validate" placeholder="William Shatner and Leonard Nimoy ... or Sue and Kate "></textarea>
+     				<label htmlFor="event_guests" className="active">Who is invited? (optional)</label>
    				</div>
 
    				<button className="btn btn-large waves-effect waves-light" type="submit" name="action" onClick={this.onSubmit}>
