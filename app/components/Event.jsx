@@ -13,10 +13,8 @@ export var Event = React.createClass({
 	function calculateDistanceInKm(lat1, lon1, lat2, lon2){
 		var R = 6371; //km
 		var toRad = Math.PI / 180;
-		var x1 = lat2-lat1;
-		var dLat = x1*toRad;  
-		var x2 = lon2-lon1;
-		var dLon = x2*toRad;  
+		var dLat = (lat2-lat1)*toRad;  
+		var dLon = (lon2-lon1)*toRad;  
 		var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
 		                Math.cos(lat1*toRad) * Math.cos(lat2*toRad) * 
 		                Math.sin(dLon/2) * Math.sin(dLon/2);  
@@ -35,7 +33,7 @@ export var Event = React.createClass({
 				return;
 			}
 			return (
-				<span className="chip">~{distance}km away from you</span>
+				<span className="chip">~{distance} km away from you</span>
 			);
 		} else {
 			return;

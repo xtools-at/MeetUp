@@ -12,9 +12,12 @@ export var Header = React.createClass({
 	},
 	onLogout(ev){
 		ev.preventDefault();
-		$(".button-collapse").sideNav('hide');
+		this.hideNav();
 	    var {dispatch} = this.props;
 	    dispatch(actions.startLogout());
+  	},
+  	hideNav(){
+  		$(".button-collapse").sideNav('hide');
   	},
     render() {
     	var user = firebase.auth().currentUser;
@@ -23,16 +26,16 @@ export var Header = React.createClass({
 			if (user) {
 			 return(
 			      <ul className="right hide-on-med-and-down">
-					<li><a href="#/add">Add Event</a></li>
-			        <li><a href="#/" onClick={self.onLogout}>Logout</a></li>
-			        <li><a href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank">Fork on Github</a></li>
+					<li><a className="waves-effect" href="#/add">Add Event</a></li>
+			        <li><a className="waves-effect" href="#/" onClick={self.onLogout}>Logout</a></li>
+			        <li><a className="waves-effect" href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank">Fork on Github</a></li>
 			      </ul>
 			 );
 			} else {
 				return(
 			      <ul className="right hide-on-med-and-down">
-					<li><a href="#/login">Login</a></li>
-			        <li><a href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank">Fork on Github</a></li>
+					<li><a className="waves-effect" href="#/login">Login</a></li>
+			        <li><a className="waves-effect" href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank">Fork on Github</a></li>
 			      </ul>
 			    );
 			}
@@ -43,12 +46,12 @@ export var Header = React.createClass({
 				return (
 					<ul id="mobile-nav" className="side-nav">
 					    <li><div className="userView">
-					      <img className="background" src="http://materializecss.com/images/office.jpg" />
-					      <img className="circle" src="http://materializecss.com/images/yuna.jpg" />
+					      <img className="background" src="/images/bg_nav.png" />
+					      <img className="circle" src="/images/useravatar.png" />
 					      <span className="white-text name">{user.displayName}</span>
 					      <span className="white-text email">{user.email}</span>
 					    </div></li>
-					    <li><a className="waves-effect" href="#/add" onClick={()=> {$(".button-collapse").sideNav('hide')}}><i className="material-icons">add</i>Add Event</a></li>
+					    <li><a className="waves-effect" href="#/add" onClick={self.hideNav}><i className="material-icons">add</i>Add Event</a></li>
 					    <li><a className="waves-effect" href="#/" onClick={self.onLogout}><i className="material-icons">close</i>Logout</a></li>
 					    <li><div className="divider"></div></li>
 					    <li><a className="waves-effect" href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank"><i className="material-icons">code</i>Fork on Github</a></li>
@@ -60,7 +63,7 @@ export var Header = React.createClass({
 					    <li><div className="userView teal">
 					      <a href="#/login"><span className="white-text name">Not logged in</span></a>
 					    </div></li>
-					    <li><a className="waves-effect" href="#/login" onClick={()=> {$(".button-collapse").sideNav('hide')}}><i className="material-icons">account_circle</i>Login</a></li>
+					    <li><a className="waves-effect" href="#/login" onClick={self.hideNav}><i className="material-icons">account_circle</i>Login</a></li>
 			        	<li><div className="divider"></div></li>
 					    <li><a className="waves-effect" href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank"><i className="material-icons">code</i>Fork on Github</a></li>
 				    </ul>
