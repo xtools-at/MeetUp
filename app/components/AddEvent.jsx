@@ -89,20 +89,26 @@ export var AddEvent = React.createClass({
 
   onSubmit(ev) {
     ev.preventDefault();
-    var {dispatch} = this.props;
-    dispatch(actions.startAddEvent(
-      this.refs.event_title.value, 
-      this.refs.event_description.value, 
-      this.refs.event_type.value, 
-      this.refs.event_address.value, 
-      this.refs.event_lat.value, 
-      this.refs.event_lng.value, 
-      this.refs.event_datetime_start.value, 
-      this.refs.event_datetime_end.value,
-      this.refs.event_host.value, 
-      this.refs.event_guests.value
-    ))
+    if ($('#event-form').checkValidity()){
+      var {dispatch} = this.props;
+      dispatch(actions.startAddEvent(
+        this.refs.event_title.value, 
+        this.refs.event_description.value, 
+        this.refs.event_type.value, 
+        this.refs.event_address.value, 
+        this.refs.event_lat.value, 
+        this.refs.event_lng.value, 
+        this.refs.event_datetime_start.value, 
+        this.refs.event_datetime_end.value,
+        this.refs.event_host.value, 
+        this.refs.event_guests.value
+      ))
+    }
   },
+
+  onValidate(ev) {
+  	$(ev.target).checkValidity();
+  };
 
   render() {
 
@@ -112,32 +118,32 @@ export var AddEvent = React.createClass({
     			<h1 tabIndex="1" className="center">Create Event</h1>
     			<p className="center">...by answering 4 simple questions:</p>
     		</div>
-    		<form className="col s12" autoComplete="on">
+    		<form className="col s12" autoComplete="on" id="event-form">
     			<h2>
     				<i className="material-icons prefix">event_note</i>
     				What?
     			</h2>
     			<div className="input-field col s12">
-     				<input type="text" className="validate" placeholder="e.g. Udacity Alumni Party" id="event_title" ref="event_title" autoFocus="true" autoComplete="title" required/>
+     				<input onFocusOut={this.onValidate} type="text" className="validate" placeholder="e.g. Udacity Alumni Party" id="event_title" ref="event_title" autoFocus="true" autoComplete="title" required/>
       			<label htmlFor="event_title" className="active">Title of your Event</label>
           </div>
           <div className="input-field col s12">
-     				<input type="text" className="validate" placeholder="The hottest party on this planet" id="event_description" ref="event_description" autoComplete="description" required/>
+     				<input onFocusOut={this.onValidate} type="text" className="validate" placeholder="The hottest party on this planet" id="event_description" ref="event_description" autoComplete="description" required/>
       			<label htmlFor="event_description" className="active">Tell me something about your Event</label>
      			</div>
           <div className="input-field col s12">
-     				<input type="text" list="event_type_list" placeholder="Party" id="event_type" ref="event_type" className="autocomplete validate" autoComplete="type" required/>
-      			<datalist id="event_type_list">
-              <option value="Birthday" />
-              <option value="Party" />
-              <option value="Wedding" />
-              <option value="Concert" />
-              <option value="Meeting" />
-              <option value="Conference" />
-              <option value="Other" />
-            </datalist>
-            <label htmlFor="event_type" className="active">Of what type is your Event?</label>
-				  </div>
+	     			<input onFocusOut={this.onValidate} type="text" list="event_type_list" placeholder="Party" id="event_type" ref="event_type" className="autocomplete validate" autoComplete="type" required/>
+	      		<datalist id="event_type_list">
+	              <option value="Birthday" />
+	              <option value="Party" />
+	              <option value="Wedding" />
+	              <option value="Concert" />
+	              <option value="Meeting" />
+	              <option value="Conference" />
+	              <option value="Other" />
+	            </datalist>
+	            <label htmlFor="event_type" className="active">Of what type is your Event?</label>
+					</div>
 
     			<h2>
     				<i className="material-icons prefix">location_on</i>

@@ -23,21 +23,26 @@ export var Login = React.createClass({
 
   onRegister(ev) {
     ev.preventDefault();
-    var {dispatch} = this.props;
-    var email = this.refs.user_email.value;
-    var name = this.refs.user_name.value;
-    var encryptedPassword = crypto.createHash('sha256').update(this.refs.user_password.value).digest('hex');
-    console.log('onRegister called', email, name, encryptedPassword);
-    dispatch(actions.startRegister(email, encryptedPassword, name));
+    if ($('#login-form').checkValidity()){
+      //https://jsfiddle.net/scgymqct/
+      var {dispatch} = this.props;
+      var email = this.refs.user_email.value;
+      var name = this.refs.user_name.value;
+      var encryptedPassword = crypto.createHash('sha256').update(this.refs.user_password.value).digest('hex');
+      console.log('onRegister called', email, name, encryptedPassword);
+      dispatch(actions.startRegister(email, encryptedPassword, name));
+    }
   },
 
   onLogin(ev) {
     ev.preventDefault();
-    var {dispatch} = this.props;
-    var email = this.refs.user_email.value;
-    var encryptedPassword = crypto.createHash('sha256').update(this.refs.user_password.value).digest('hex');
-    console.log('onLogin called', email, encryptedPassword);
-    dispatch(actions.startLogin(email, encryptedPassword));
+    if ($('#login-form').checkValidity()){
+      var {dispatch} = this.props;
+      var email = this.refs.user_email.value;
+      var encryptedPassword = crypto.createHash('sha256').update(this.refs.user_password.value).digest('hex');
+      console.log('onLogin called', email, encryptedPassword);
+      dispatch(actions.startLogin(email, encryptedPassword));
+    }
   },
 
   render() {
@@ -76,6 +81,8 @@ export var Login = React.createClass({
               name="name" 
               autoComplete="name"
               autoFocus="true" 
+              data-error="Please enter at least 3 Characters"
+              min="3" 
               required/>
             <label htmlFor="user_name" className="active">Your Name or Username</label>
           </div>
@@ -165,11 +172,12 @@ export var Login = React.createClass({
           {subText}
         </div>
         
-        <form className="col s12" autoComplete="on">
+        <form className="col s12" autoComplete="on" id="login-form">
           {usernameInput}
           <div className="input-field col s12">
             <input type="email" 
               className="validate" 
+              data-error="This does not look like an E-Mail"
               placeholder="foo@bar.com" 
               id="user_email" 
               ref="user_email" 
@@ -184,6 +192,7 @@ export var Login = React.createClass({
               className="validate" 
               pattern="^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$"  
               placeholder="**********" 
+              data-error="Your password must meet the following criteria:\n - At least 8 characters long\n - At least one Lowercase AND Uppercase letter\n - At least one number"
               id="user_password" 
               ref="user_password" 
               name="password" 
