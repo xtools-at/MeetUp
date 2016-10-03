@@ -10,10 +10,16 @@ import Footer from 'Footer';
 import Map from 'Map';
 import ContentContainer from 'ContentContainer';
 import ActionButton from 'ActionButton';
+import {toast} from 'Helper';
 
 export var Main = React.createClass({
 
 	componentDidMount() {
+
+			//testing toasts
+			toast('Just checking out');
+
+			//fetch user location
 			var dispatch = this.props.dispatch;
 	    	var coords = axios.get('http://ipinfo.io').then((res) => {
 	    		console.log(res.data);

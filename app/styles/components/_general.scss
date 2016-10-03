@@ -1,7 +1,10 @@
+ /*Global*/
 .row.overall-container {
 	height: 100vh;
 	margin-bottom:0;
 }
+
+ /*Nav*/
 
 nav .brand-logo {
 	padding:0 15px;
@@ -29,7 +32,7 @@ nav .brand-logo {
   }
       
 
-/*MAPS*/
+/*Maps*/
 
 #map-container {
 	position:relative;
@@ -43,36 +46,3 @@ nav .brand-logo {
     bottom: 0;
     top: 0;
  }
-
-
-
-/*
-header {
-	position:absolute;
-	top:0;
-	left:0;
-	right:0;
-	z-index:10;
-	width:100px;
-	margin:0 auto;
-	
-	h1 {
-		font-size: 22px;
-		font-weight:bold;
-		text-align:center;
-		margin: 22px 0 0 0;
-		text-shadow: 2px 2px 2px #fff;
-
-		a {
-			color: $primary;
-		}
-	}
-}
-
-
-
-footer {
-	height: 25px;
-	background-color: $primary
-}
-*/
