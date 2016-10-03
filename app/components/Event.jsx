@@ -30,6 +30,10 @@ export var Event = React.createClass({
 		console.log("Event LatLng:",lat, lng, userLat, userLng);
 		if (typeof lat != 'undefined' && typeof lng != 'undefined' && lat != '' && lng != ''){
 			var distance = calculateDistanceInKm(lat, lng, userLat, userLng);
+			if (distance !== distance){
+				//value is NaN
+				return;
+			}
 			return (
 				<span className="chip">~{distance}km away from you</span>
 			);
