@@ -81,7 +81,7 @@ export var Login = React.createClass({
               name="name" 
               autoComplete="name"
               autoFocus="true" 
-              min="3" 
+              pattern="^\S*(?=\S{3,})\S*$"
               required/>
             <label htmlFor="user_name" className="active" data-error="Please enter at least 3 Characters">Your Name or Username</label>
           </div>
