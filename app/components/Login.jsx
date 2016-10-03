@@ -81,10 +81,9 @@ export var Login = React.createClass({
               name="name" 
               autoComplete="name"
               autoFocus="true" 
-              data-error="Please enter at least 3 Characters"
               min="3" 
               required/>
-            <label htmlFor="user_name" className="active">Your Name or Username</label>
+            <label htmlFor="user_name" className="active" data-error="Please enter at least 3 Characters">Your Name or Username</label>
           </div>
       );
       button = (
@@ -177,7 +176,6 @@ export var Login = React.createClass({
           <div className="input-field col s12">
             <input type="email" 
               className="validate" 
-              data-error="This does not look like an E-Mail"
               placeholder="foo@bar.com" 
               id="user_email" 
               ref="user_email" 
@@ -185,20 +183,19 @@ export var Login = React.createClass({
               autoComplete="email" 
               autoFocus={autofocusEmail} 
               required/>
-            <label htmlFor="user_email" className="active">E-Mail</label>
+            <label htmlFor="user_email" className="active" data-error="This does not look like an E-Mail">E-Mail</label>
           </div>
           <div className="input-field col s12">
             <input type="password"
               className="validate" 
               pattern="^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$"  
               placeholder="**********" 
-              data-error="Your password must meet the following criteria:\n - At least 8 characters long\n - At least one Lowercase AND Uppercase letter\n - At least one number"
               id="user_password" 
               ref="user_password" 
               name="password" 
               autoComplete="password" 
               required/>
-            <label htmlFor="user_password" className="active">Password</label>
+            <label htmlFor="user_password" className="active" data-error="Your password must meet the following criteria:\n - At least 8 characters long\n - At least one Lowercase AND Uppercase letter\n - At least one number">Password</label>
         	</div>
           {additionalInfosToggle}
           {additionalFields}
