@@ -40,6 +40,11 @@ export var storageReducer = (state = {}, action) => {
         userLat : action.userLat,
         userLng : action.userLng
       };
+    case 'SET_ACTIVE_EVENT':
+      return {
+        ...state,
+        activeEvent: action.activeEvent
+      };
     case 'STORE_GOOGLE':
       return {
         ...state,

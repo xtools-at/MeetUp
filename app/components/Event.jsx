@@ -7,7 +7,7 @@ import * as actions from 'actions';
 export var Event = React.createClass({
   render() {
 
-  	var {title, description, type, address, lat, lng, timeStart, host, userLat, userLng} = this.props;
+  	var {id, title, description, type, address, lat, lng, timeStart, host, userLat, userLng} = this.props;
   	timeStart = moment(timeStart).format('D.MMM.\'YY @ HH:mm');
 
 	function calculateDistanceInKm(lat1, lon1, lat2, lon2){
@@ -40,10 +40,12 @@ export var Event = React.createClass({
 		}
 	}
 
+	var isEventActive = (id == this.props.activeEvent) ? ' teal lighten-4' : '';
+
 	
 
     return (
-	    <div className="card horizontal">
+	    <div className="card horizontal{isEventActive}" id={id}>
 	      <div className="card-image">
 	        <i className="material-icons large">event_note</i>
 	      </div>

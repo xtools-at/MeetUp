@@ -52,10 +52,20 @@ export var Main = React.createClass({
 
 		}
 	},
+
+	onMarkerClick(eventId){
+		var {dispatch} = this.props;
+		dispatch(actions.setActiveEvent(eventId));
+		$('main>.card-panel').scrollTop('#'+eventId);
+	},
 	
     render() {
+    
+   		function renderMarkers(self) {
+   			var {events} = this.props;
 
-   		function renderMarkers() {
+   			/*
+   			//Dummy Data
    			var locs = [
 				{
 					id: 1,
@@ -73,9 +83,14 @@ export var Main = React.createClass({
 					position: {lat: 37.768519, lng: -122.415640}
 				}
 			];
+			*/
 
-	   		var markers = locs.map((object, i)=>{
-	   			return <Marker position={object.position} name={object.name} key={i} />;
+	   		var markers = events.map((event, i)=>{
+	   			var position = {
+	   				lat: event.lat,
+	   				lng: event.lng
+	   			};
+	   			return <Marker position={position} name={event.title} key={event.id} onClick={self.onMarkerClick(event.id)} />;
 	   		});
 	   			
 	   		return markers;
@@ -85,7 +100,7 @@ export var Main = React.createClass({
            	<div className="row overall-container">
            		<Header />
         		<Map google={this.props.google}>
-        			{renderMarkers()}
+        			{renderMarkers(this)}
         		</Map>
         		<ContentContainer />
         		<ActionButton />

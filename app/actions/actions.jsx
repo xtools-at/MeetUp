@@ -82,6 +82,13 @@ export var storeLocation = (lat, lng) => {
   };
 };
 
+export var setActiveEvent = (eventId) => {
+  return {
+    type: 'SET_ACTIVE_EVENT',
+    activeEvent: eventId
+  }
+}
+
 /*
 export var fetchIpLocation = () => {
   return (dispatch, getState) => {
