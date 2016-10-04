@@ -148,6 +148,7 @@ export var Login = React.createClass({
                 <option value="Tabs!!!" />
                 <option value="Oh God Tabs!" />
                 <option value="Spaces" />
+                <option value="Mixing it wildly" />
                 <option value="Semicolons" />
                 <option value="Oh come on..." />
               </datalist>
@@ -195,7 +196,7 @@ export var Login = React.createClass({
               name="password" 
               autoComplete="password" 
               required/>
-            <label htmlFor="user_password" className="active" data-error="Your password must meet the following criteria:\n - At least 8 characters long\n - At least one Lowercase AND Uppercase letter\n - At least one number">Password</label>
+            <label htmlFor="user_password" className="active" data-error="Your password must meet the following criteria: - At least 8 characters long - At least one Lowercase AND Uppercase letter - At least one number">Password</label>
         	</div>
           {additionalInfosToggle}
           {additionalFields}

@@ -21,7 +21,7 @@ export var AddEvent = React.createClass({
         //check if the location is accurate
         if (place.geometry.viewport) {
           //not accurate enough!
-          //Materialize.toast('A bit more accurate please! Try adding Street, Housenumber or ZipCode', 3000);
+          //Materialize.toast('Please try to be more accurate by adding Street- and Housenumber. We\'ll store your Event anyways, but can\'t show it on the Map like this', 3000);
         }
         //store the coords
         console.log('Coords from Autocomplete:', place.geometry.location.lat(), place.geometry.location.lng());
@@ -108,7 +108,7 @@ export var AddEvent = React.createClass({
 
   onValidate(ev) {
   	$(ev.target).checkValidity();
-  };
+  },
 
   render() {
 
@@ -209,5 +209,5 @@ export var AddEvent = React.createClass({
 });
 
 export default Redux.connect()(GoogleApiWrapper({
-  apiKey: 'AIzaSyBDKoNEeqWSY0MzlUyALFAA2x2hexMrEFs'
+  apiKey: process.env.MAPS_API_KEY
 })(AddEvent));

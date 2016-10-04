@@ -14,7 +14,7 @@ export var EventList = React.createClass({
 	          <div className="spinner-layer spinner-blue">
 	            <div className="circle-clipper left">
 	              <div className="circle"></div>
-	            </div><div className="gap-patch">
+	             </div><div className="gap-patch">
 	              <div className="circle"></div>
 	            </div><div className="circle-clipper right">
 	              <div className="circle"></div>
@@ -33,7 +33,8 @@ export var EventList = React.createClass({
 
     return (
       <div>
-        <h1 className="center">Events near you</h1>
+        <h1 className="center">Latest Events</h1>
+        <p className="center">You should check these out!</p>
         {renderEvents()}
       </div>
     )

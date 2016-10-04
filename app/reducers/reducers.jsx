@@ -32,7 +32,11 @@ export var eventsReducer = (state = [], action) => {
   }
 };
 
-export var storageReducer = (state = {}, action) => {
+export var storageReducer = (state = {
+  userLat: '',
+  userLng: '',
+  activeEvent: ''
+  }, action) => {
   switch (action.type) {
     case 'STORE_LOCATION':
       return {
@@ -44,16 +48,6 @@ export var storageReducer = (state = {}, action) => {
       return {
         ...state,
         activeEvent: action.activeEvent
-      };
-    case 'STORE_GOOGLE':
-      return {
-        ...state,
-        ...action.google
-      };
-    case 'STORE_MAP':
-      return {
-        ...state,
-        ...action.map
       };
     case 'LOGOUT':
       return {

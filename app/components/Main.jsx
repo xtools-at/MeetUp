@@ -10,14 +10,14 @@ import Footer from 'Footer';
 import Map from 'Map';
 import ContentContainer from 'ContentContainer';
 import ActionButton from 'ActionButton';
-import {toast} from 'Helper';
+import Helper from 'Helper';
 
 export var Main = React.createClass({
 
 	componentDidMount() {
 
 			//testing toasts
-			toast('Just checking out');
+			Helper.toast('Just checking out');
 
 			//fetch user location
 			var dispatch = this.props.dispatch;
@@ -41,28 +41,21 @@ export var Main = React.createClass({
 	   		})
 	},
 
-
-	componentWillReceiveProps(nextProps) {
-
-	    if (this.props.google != nextProps.google){
-	    	//dispatch google object
-	    }
-
-	    if (true){
-
-		}
-	},
-
 	onMarkerClick(eventId){
 		var {dispatch} = this.props;
-		dispatch(actions.setActiveEvent(eventId));
+		dispatch(
+			{
+			   type: 'SET_ACTIVE_EVENT',
+			   activeEvent: eventId
+			}
+		);
 		$('main>.card-panel').scrollTop('#'+eventId);
 	},
 	
     render() {
     
    		function renderMarkers(self) {
-   			var {events} = this.props;
+   			var {events} = self.props;
 
    			/*
    			//Dummy Data
@@ -84,22 +77,27 @@ export var Main = React.createClass({
 				}
 			];
 			*/
+			var markers = '';
 
-	   		var markers = events.map((event, i)=>{
-	   			var position = {
-	   				lat: event.lat,
-	   				lng: event.lng
-	   			};
-	   			return <Marker position={position} name={event.title} key={event.id} onClick={self.onMarkerClick(event.id)} />;
-	   		});
+			if (typeof events != 'undefined'){
+		   		markers = events.map((event, i)=>{
+		   			var position = {
+		   				lat: event.lat,
+		   				lng: event.lng
+		   			};
+		   			return <Marker position={position} name={event.title} key={event.id} onClick={()=>{self.onMarkerClick(event.id)}}/>;
+		   		});
+	   		}
 	   			
 	   		return markers;
    		}
 
+   		var {storage, google} = this.props;
+
         return (
            	<div className="row overall-container">
            		<Header />
-        		<Map google={this.props.google}>
+        		<Map google={google} center={{lat: storage.userLat, lng: storage.userLng}}>
         			{renderMarkers(this)}
         		</Map>
         		<ContentContainer />
@@ -110,6 +108,10 @@ export var Main = React.createClass({
     }
 });
 
-export default Redux.connect()(GoogleApiWrapper({
-  apiKey: 'AIzaSyBDKoNEeqWSY0MzlUyALFAA2x2hexMrEFs'
+export default Redux.connect(
+	(state) => {
+    	return state;
+  	}
+)(GoogleApiWrapper({
+  apiKey: process.env.MAPS_API_KEY
 })(Main));

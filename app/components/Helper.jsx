@@ -1,4 +1,7 @@
-export var toast = (text) => {
+var $ = require('jquery');
+
+export default {
+	toast : function(text) {
 	var $tc = $('#toast-container');
 	$tc.html('<div class="toast" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); top: 30px; opacity: 0;">'+text+'</div>');
 	var $t = $tc.find('.toast');
@@ -8,7 +11,6 @@ export var toast = (text) => {
 				$t.remove();
 			})
 		},3000);
-	});
+		});
+	}
 };
-
-module.exports = toast;

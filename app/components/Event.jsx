@@ -40,12 +40,12 @@ export var Event = React.createClass({
 		}
 	}
 
-	var isEventActive = (id == this.props.activeEvent) ? ' teal lighten-4' : '';
+	var isEventActive = (id == this.props.activeEvent) ? 'card horizontal teal lighten-4' : 'card horizontal';
 
 	
 
     return (
-	    <div className="card horizontal{isEventActive}" id={id}>
+	    <div className={isEventActive} id={id}>
 	      <div className="card-image">
 	        <i className="material-icons large">event_note</i>
 	      </div>

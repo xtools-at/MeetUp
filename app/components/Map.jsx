@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
+import * as Redux from 'react-redux';
 //import { camelize, makeCancelable } from 'google-maps-react'
 
 
@@ -164,8 +165,18 @@ export class Map extends React.Component {
 
       return (
         <div id="map-container">
-          <div ref='map' id="map">
-            Loading map...
+          <div ref="map" id="map">
+            <div className="preloader-wrapper big active">
+              <div className="spinner-layer spinner-blue">
+                <div className="circle-clipper left">
+                  <div className="circle"></div>
+                </div><div className="gap-patch">
+                  <div className="circle"></div>
+                </div><div className="circle-clipper right">
+                  <div className="circle"></div>
+                </div>
+              </div>
+            </div>
           </div>
           {this.renderChildren()}
         </div>
@@ -177,7 +188,7 @@ export class Map extends React.Component {
 //evtNames.forEach(e => Map.propTypes[camelize(e)] = T.func)
 
 Map.defaultProps = {
-  zoom: 14,
+  zoom: 6,
   initialCenter: {
     lat: 37.778519,
     lng: -122.405640
@@ -189,4 +200,4 @@ Map.defaultProps = {
   visible: true
 }
 
-export default Map;
+export default Redux.connect()(Map);
