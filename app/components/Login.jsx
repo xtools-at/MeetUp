@@ -121,8 +121,7 @@ export var Login = React.createClass({
                 className="validate" 
                 defaultValue="1980-01-01" 
                 id="add_birthday" 
-                placeholder="" 
-                onChange={this.startDateChanged}
+                placeholder=""
                 required/>
               <label htmlFor="add_birthday" className="active">When is your Birthday</label>
             </div>
@@ -147,11 +146,12 @@ export var Login = React.createClass({
               <datalist id="add_tabs_list">
                 <option value="Tabs" />
                 <option value="Tabs!!!" />
+                <option value="Oh God Tabs!" />
                 <option value="Spaces" />
                 <option value="Semicolons" />
                 <option value="Oh come on..." />
               </datalist>
-              <label htmlFor="add_tabs" className="active">Tabs or Spaces</label>
+              <label htmlFor="add_tabs" className="active">Tabs or Spaces?</label>
             </div>
             
           </div>
