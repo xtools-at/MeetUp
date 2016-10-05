@@ -13,6 +13,7 @@ export var AddEvent = React.createClass({
     var google = nextProps.google;
     var autocomplete = new google.maps.places.Autocomplete(ReactDOM.findDOMNode(this.refs.event_address), {types: ['geocode']});
     autocomplete.addListener('place_changed', () => {
+      //this happens when autocomplete gets clicked
       const place = autocomplete.getPlace();
       console.log('Place from Autocomplete:', place);
       if (!place.geometry){
@@ -21,40 +22,45 @@ export var AddEvent = React.createClass({
         //check if the location is accurate
         if (place.geometry.viewport) {
           //not accurate enough!
-          //Materialize.toast('Please try to be more accurate by adding Street- and Housenumber. We\'ll store your Event anyways, but can\'t show it on the Map like this', 3000);
+          this.setAddressAccurate(false);
+        } else {
+          this.setAddressAccurate(true);
         }
+
         //store the coords
         console.log('Coords from Autocomplete:', place.geometry.location.lat(), place.geometry.location.lng());
         //latLng = ''+place.geometry.location.lat()+','+place.geometry.location.lng();
         $('#event_lat').val(''+place.geometry.location.lat());
         $('#event_lng').val(''+place.geometry.location.lng());
       }
-
-      /*
-      if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport);
-      } else {
-        map.setCenter(place.geometry.location);
-        map.setZoom(17);
-      }
-
-      this.setState({
-        place: place,
-        position: place.geometry.location
-      })
-      */
-
-
-      $('#event_address').autocomplete({
-        data: {
-          "Apple": null,
-          "Microsoft": null,
-          "Google": 'http://placehold.it/250x250'
-        }
-      });
-        
-
     })
+  },
+
+  geocodeAddress(){
+    var {google} = this.props;
+    const geocoder = new google.maps.Geocoder();
+
+    var address = this.refs.events_address.value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        
+        this.setAddressAccurate(!results[0].partial_match);
+        $('#event_lat').val(''+results[0].geometry.location.lat());
+        $('#event_lng').val(''+results[0].geometry.location.lng());
+
+      } else {
+        console.log('geocoding failed', status);
+        this.setAddressAccurate(false);
+      }
+    });
+  },
+
+  setAddressAccurate(good){
+    if (good) {
+      $('#event_address').next('label').attr('data-success','');
+    } else {
+      $('#event_address').next('label').attr('data-success','Please try to be more accurate by adding Street and Housenumber (We\'ll store your Event anyways!)');
+    }
   },
 
   componentWillReceiveProps(nextProps) {
@@ -150,7 +156,7 @@ export var AddEvent = React.createClass({
     				Where?
     			</h2>
     			<div className="input-field col s12">
-            <input className="validate" type="text" placeholder="Just start typing, we've got you covered" id="event_address" ref="event_address" name="address" autoComplete="street-address" required/>
+            <input className="validate" type="text" placeholder="Just start typing, we've got you covered" id="event_address" ref="event_address" name="address" autoComplete="street-address" onFocusOut={this.geocodeAddress} required/>
             <label htmlFor="event_address" className="active">Location of your event</label>
             <input type="hidden" id="event_lat" ref="event_lat"/>
             <input type="hidden" id="event_lng" ref="event_lng"/>

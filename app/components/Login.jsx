@@ -47,7 +47,7 @@ export var Login = React.createClass({
 
   render() {
     var {login} = this.props.route;
-    var heading,subText,usernameInput,button,additionalInfosToggle, additionalFields, autofocusEmail;
+    var heading,subText,usernameInput,button,additionalInfosToggle, additionalFields, autofocusEmail, passwordErrorText;
     
 
     if (login) {
@@ -65,6 +65,7 @@ export var Login = React.createClass({
       additionalInfosToggle = '';
       autofocusEmail='true';
       additionalFields='';
+      passwordErrorText = 'Your password is incorrect';
 
     } else {
       heading = 'Register';
@@ -102,6 +103,7 @@ export var Login = React.createClass({
         </div>
       );
       autofocusEmail='false';
+      passwordErrorText = 'Your password must meet the following criteria: At least 8 characters long and at least one lowercase, uppercase Letter and one Number';
       if (this.props.additionalFields){
         additionalFields=(
           <div>
@@ -196,7 +198,7 @@ export var Login = React.createClass({
               name="password" 
               autoComplete="password" 
               required/>
-            <label htmlFor="user_password" className="active" data-error="Your password must meet the following criteria: - At least 8 characters long - At least one Lowercase AND Uppercase letter - At least one number">Password</label>
+            <label htmlFor="user_password" className="active" data-error={passwordErrorText}>Password</label>
         	</div>
           {additionalInfosToggle}
           {additionalFields}
