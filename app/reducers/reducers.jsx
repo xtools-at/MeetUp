@@ -49,6 +49,11 @@ export var storageReducer = (state = {
         ...state,
         activeEvent: action.activeEvent
       };
+    case 'SET_MAP_CENTER':
+      return {
+        ...state,
+        mapCenter
+      };
     case 'LOGOUT':
       return {
         ...state

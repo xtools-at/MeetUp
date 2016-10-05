@@ -5,73 +5,81 @@ import moment from 'moment';
 import * as actions from 'actions';
 
 export var Event = React.createClass({
-  render() {
+	onEventClick(){
+		var {dispatch, id, lat, lng} = this.props;
+		dispatch(actions.setActiveEvent(id));
+		if (typeof lat != 'undefined' && lat != ''){
+			dispatch(actions.setMapCenter(lat, lng));
+		}
+	},
 
-  	var {id, title, description, type, address, lat, lng, timeStart, host, userLat, userLng} = this.props;
-  	timeStart = moment(timeStart).format('D.MMM.\'YY @ HH:mm');
+	render() {
 
-	function calculateDistanceInKm(lat1, lon1, lat2, lon2){
-		var R = 6371; //km
-		var toRad = Math.PI / 180;
-		var dLat = (lat2-lat1)*toRad;  
-		var dLon = (lon2-lon1)*toRad;  
-		var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-		                Math.cos(lat1*toRad) * Math.cos(lat2*toRad) * 
-		                Math.sin(dLon/2) * Math.sin(dLon/2);  
-		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-		var d = R * c; 
+	  	var {id, title, description, type, address, lat, lng, timeStart, host, userLat, userLng} = this.props;
+	  	timeStart = moment(timeStart).format('D.MMM.\'YY @ HH:mm');
 
-		return(parseInt(d));
-	}
+		function calculateDistanceInKm(lat1, lon1, lat2, lon2){
+			var R = 6371; //km
+			var toRad = Math.PI / 180;
+			var dLat = (lat2-lat1)*toRad;  
+			var dLon = (lon2-lon1)*toRad;  
+			var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+			                Math.cos(lat1*toRad) * Math.cos(lat2*toRad) * 
+			                Math.sin(dLon/2) * Math.sin(dLon/2);  
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+			var d = R * c; 
 
-	function showLocationElement() {
-		console.log("Event LatLng:",lat, lng, userLat, userLng);
-		if (typeof lat != 'undefined' && typeof lng != 'undefined' && lat != '' && lng != ''){
-			var distance = calculateDistanceInKm(lat, lng, userLat, userLng);
-			if (distance !== distance){
-				//value is NaN
+			return(parseInt(d));
+		}
+
+		function showLocationElement() {
+			console.log("Event LatLng:",lat, lng, userLat, userLng);
+			if (typeof lat != 'undefined' && typeof lng != 'undefined' && lat != '' && lng != ''){
+				var distance = calculateDistanceInKm(lat, lng, userLat, userLng);
+				if (distance !== distance){
+					//value is NaN
+					return;
+				}
+				return (
+					<span className="chip">~{distance} km away from you</span>
+				);
+			} else {
 				return;
 			}
-			return (
-				<span className="chip">~{distance} km away from you</span>
-			);
-		} else {
-			return;
 		}
-	}
 
-	var isEventActive = (id == this.props.activeEvent) ? 'card horizontal teal lighten-4' : 'card horizontal';
+		var isEventActive = (id == this.props.activeEvent) ? 'card horizontal teal lighten-4' : 'card horizontal';
 
-	
+		
 
-    return (
-	    <div className={isEventActive} id={id}>
-	      <div className="card-image">
-	        <i className="material-icons large">event_note</i>
-	      </div>
-	      <div className="card-stacked">
-	        <div className="card-content">
-	        	<h2>{title}</h2>
-				<span className="chip">{type}</span>
-	          	<p>
-	          		<i className="material-icons">account_circle</i>
-	          		by {host}
-	          	</p>
-	          	<p>
-	          		<i className="material-icons">location_on</i>
-	          		{address}
-	          		{showLocationElement()}
-	          	</p>
-	          	<p>
-	          		<i className="material-icons">access_time</i>
-	          		starting {timeStart}
-	          	</p>
-	          	<p>{description}</p>
-	        </div>
-	      </div>
-	    </div>
-    )
-  }
-});
+	    return (
+		    <div className={isEventActive} id={id} onClick={this.onEventClick}>
+		      <div className="card-image">
+		        <i className="material-icons large">event_note</i>
+		      </div>
+		      <div className="card-stacked">
+		        <div className="card-content">
+		        	<h2>{title}</h2>
+					<span className="chip">{type}</span>
+		          	<p>
+		          		<i className="material-icons">account_circle</i>
+		          		by {host}
+		          	</p>
+		          	<p>
+		          		<i className="material-icons">location_on</i>
+		          		{address}
+		          		{showLocationElement()}
+		          	</p>
+		          	<p>
+		          		<i className="material-icons">access_time</i>
+		          		starting {timeStart}
+		          	</p>
+		          	<p>{description}</p>
+		        </div>
+		      </div>
+		    </div>
+	    )
+	  }
+	});
 
 export default Redux.connect()(Event);

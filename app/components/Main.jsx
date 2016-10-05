@@ -69,9 +69,11 @@ export var Main = React.createClass({
    		var {storage, google} = this.props;
 
         return (
+        	var center = (storage.mapCenter && storage.mapCenter.lat) ? {storage.mapCenter} : {lat: storage.userLat, lng: storage.userLng};
+
            	<div className="row overall-container">
            		<Header />
-        		<Map google={google} center={{lat: storage.userLat, lng: storage.userLng}}>
+        		<Map google={google} center={center}>
         			{renderMarkers(this)}
         		</Map>
         		<ContentContainer />

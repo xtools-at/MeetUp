@@ -92,6 +92,13 @@ export var setActiveEvent = (eventId) => {
   }
 }
 
+export var setMapCenter = (lat, lng) => {
+  return {
+    type: 'SET_MAP_CENTER',
+    mapCenter: {lat, lng}
+  }
+}
+
 /*
 export var fetchIpLocation = () => {
   return (dispatch, getState) => {
