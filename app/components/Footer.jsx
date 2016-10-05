@@ -1,6 +1,6 @@
 import React from 'react';
 import * as actions from 'actions';
-//import * as Redux from 'react-redux';
+import * as Redux from 'react-redux';
 
 export var Footer = React.createClass({
     render() {
@@ -28,4 +28,4 @@ export var Footer = React.createClass({
     }
 });
 
-module.exports = Footer;
+export default Redux.connect()(Footer);

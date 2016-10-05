@@ -96,7 +96,9 @@ export var Main = React.createClass({
 
 export default Redux.connect(
 	(state) => {
-    	return state;
+    	return {
+    		storage: state.storage
+    	};
   	}
 )(GoogleApiWrapper({
   apiKey: process.env.MAPS_API_KEY

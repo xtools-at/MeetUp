@@ -26,7 +26,7 @@ export var Header = React.createClass({
   	},
     render() {
     	var user = firebase.auth().currentUser;
-    	var {toggleMap} = this.props;
+    	var {toggleMap} = this.props.storage;
     	var navIconActive ='';
 
     	if (toggleMap){
@@ -38,15 +38,15 @@ export var Header = React.createClass({
 			if (user) {
 			 return(
 			    <ul className="right hide-on-med-and-down">
-						<li><a className="waves-effect" href="#/add">Add Event</a></li>
-		        <li><a className="waves-effect" href="#/" onClick={self.onLogout}>Logout</a></li>
-		        <li><a className="waves-effect" href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank">Fork on Github</a></li>
+					<li><a className="waves-effect" href="#/add">Add Event</a></li>
+			        <li><a className="waves-effect" href="#/" onClick={self.onLogout}>Logout</a></li>
+			        <li><a className="waves-effect" href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank">Fork on Github</a></li>
 			    </ul>
 			 );
 			} else {
 				return(
 			      <ul className="right hide-on-med-and-down">
-							<li><a className="waves-effect" href="#/login">Login</a></li>
+					<li><a className="waves-effect" href="#/login">Login</a></li>
 			        <li><a className="waves-effect" href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank">Fork on Github</a></li>
 			      </ul>
 			    );
@@ -88,8 +88,8 @@ export var Header = React.createClass({
         <header>
          	<nav>
 				    <div className="nav-wrapper">
-				      <a href="#/" className="brand-logo"><i className="material-icons">event_note</i>MeetUp</a>
-				      <a data-activates="mobile-nav" className="button-collapse"><i className="material-icons">menu</i></a>
+			      	<a href="#/" className="brand-logo"><i className="material-icons">event_note</i>MeetUp</a>
+			      	<a data-activates="mobile-nav" className="button-collapse"><i className="material-icons">menu</i></a>
 							<ul className="right hide-on-large-only">
 					 			<li className={navIconActive}>
 					 				<a href="#/" onClick={this.toggleMap}>
@@ -98,17 +98,19 @@ export var Header = React.createClass({
 						 			</a>
 						 		</li>
 					 		</ul>
-					  {renderLinks(this)}
-					  {renderMobileNav(this)}
-				    </div>
-		  		</nav>
-        </header>
-      );
-    }
+				  		{renderLinks(this)}
+				  		{renderMobileNav(this)}
+			    </div>
+		  	</nav>
+      </header>
+    );
+  }
 });
 
 export default Redux.connect(
     (state) => {
-    return state;
+    return {
+    	storage: state.storage
+    };
   }
 )(Header);

@@ -30,6 +30,8 @@ export var ActionButton = React.createClass({
 
 export default Redux.connect(
     (state) => {
-    return state;
-  }
+        return {
+            auth: state.auth
+        };
+    }
 )(ActionButton);

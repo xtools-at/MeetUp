@@ -43,6 +43,9 @@ export var EventList = React.createClass({
 
 export default Redux.connect(
   (state) => {
-    return state;
+    return {
+      events: state.events,
+      storage: state.storage
+    };
   }
 )(EventList);

@@ -7,7 +7,7 @@ export var ContentContainer = React.createClass({
 
     render() {
 
-        var {toggleMap} = this.props;
+        var {toggleMap} = this.props.storage;
     	var mapActive ='col s12 m8 l5';
 
     	if (toggleMap){
@@ -27,6 +27,8 @@ export var ContentContainer = React.createClass({
 
 export default Redux.connect(
 	(state) =>{
-		return state;
+        return {
+            storage: state.storage
+        };
 	}
 )(ContentContainer);
