@@ -168,6 +168,7 @@ export var AddEvent = React.createClass({
     			</h2>
     			<div className="input-field col s12">
      				<input type="datetime-local" 
+              onFocusOut={this.onValidate} 
               className="validate" 
               defaultValue={moment().format('YYYY-MM-DDTHH:mm')} 
               min={moment().format('YYYY-MM-DDTHH:mm')} 
@@ -180,6 +181,7 @@ export var AddEvent = React.createClass({
    				</div>
    				<div className="input-field col s12">
      				<input type="datetime-local" 
+              onFocusOut={this.onValidate}
               className="validate" 
               defaultValue={moment().format('YYYY-MM-DDTHH:mm')} 
               min={moment().format('YYYY-MM-DDTHH:mm')} 
@@ -195,7 +197,7 @@ export var AddEvent = React.createClass({
     				Who?
     			</h2>
     			<div className="input-field col s12">
-     				<input type="text" className="validate" defaultValue={firebase.auth().currentUser.displayName} placeholder="Udacity, Google, ... or Peter" id="event_host" ref="event_host" name="name" autoComplete="name" required/>
+     				<input onFocusOut={this.onValidate} type="text" className="validate" defaultValue={firebase.auth().currentUser.displayName} placeholder="Udacity, Google, ... or Peter" id="event_host" ref="event_host" name="name" autoComplete="name" required/>
       			<label htmlFor="event_host" className="active">Who is hosting the event?</label>
      			</div>
    				<div className="input-field col s12">

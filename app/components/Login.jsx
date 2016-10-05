@@ -45,6 +45,10 @@ export var Login = React.createClass({
     }
   },
 
+  onValidate(ev) {
+    $(ev.target).checkValidity();
+  },
+
   render() {
     var {login} = this.props.route;
     var heading,subText,usernameInput,button,additionalInfosToggle, additionalFields, autofocusEmail, passwordErrorText;
@@ -76,6 +80,7 @@ export var Login = React.createClass({
         <div className="input-field col s12">
             <input type="text" 
               className="validate" 
+              onFocusOut={this.onValidate} 
               placeholder="Guybrush Threepwood or Frank-the-Tank" 
               id="user_name" 
               ref="user_name" 
@@ -123,8 +128,7 @@ export var Login = React.createClass({
                 className="validate" 
                 defaultValue="1980-01-01" 
                 id="add_birthday" 
-                placeholder=""
-                required/>
+                placeholder=""/>
               <label htmlFor="add_birthday" className="active">When is your Birthday</label>
             </div>
 
@@ -178,6 +182,7 @@ export var Login = React.createClass({
           {usernameInput}
           <div className="input-field col s12">
             <input type="email" 
+              onFocusOut={this.onValidate} 
               className="validate" 
               placeholder="foo@bar.com" 
               id="user_email" 
@@ -190,6 +195,7 @@ export var Login = React.createClass({
           </div>
           <div className="input-field col s12">
             <input type="password"
+              onFocusOut={this.onValidate} 
               className="validate" 
               pattern="^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$"  
               placeholder="**********" 
