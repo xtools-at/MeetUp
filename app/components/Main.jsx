@@ -10,15 +10,10 @@ import Footer from 'Footer';
 import Map from 'Map';
 import ContentContainer from 'ContentContainer';
 import ActionButton from 'ActionButton';
-import Helper from 'Helper';
 
 export var Main = React.createClass({
 
 	componentDidMount() {
-
-			//testing toasts
-			Helper.toast('Just checking out');
-
 			//fetch user location
 			var dispatch = this.props.dispatch;
 	    	var coords = axios.get('http://ipinfo.io').then((res) => {
@@ -56,27 +51,6 @@ export var Main = React.createClass({
     
    		function renderMarkers(self) {
    			var {events} = self.props;
-
-   			/*
-   			//Dummy Data
-   			var locs = [
-				{
-					id: 1,
-					name: 'loc1',
-					position: {lat: 37.778519, lng: -122.405640}
-				},
-				{
-					id: 2,
-					name: 'loc2',
-					position: {lat: 37.759703, lng: -122.428093}
-				},
-				{
-					id: 3,
-					name: 'loc3',
-					position: {lat: 37.768519, lng: -122.415640}
-				}
-			];
-			*/
 			var markers = '';
 
 			if (typeof events != 'undefined'){

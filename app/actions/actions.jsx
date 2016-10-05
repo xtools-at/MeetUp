@@ -1,6 +1,7 @@
 import moment from 'moment';
 import axios from 'axios';
 var {hashHistory} = require('react-router');
+import Helper from 'Helper';
 
 import firebase, {dbRef} from 'app/firebase/';
 
@@ -28,12 +29,10 @@ export var startRegister = (email, encryptedPassword, username) => {
     return firebase.auth().createUserWithEmailAndPassword(email, encryptedPassword).then(
       ()=>{
         dispatch(saveUsername(username));
-      },
-      (error)=>{
-        console.log('Unable to Register', error);
-      },
-      ).catch(function(error) {
+        Helper.toast('You have registered succesfully!');
+      }).catch((error)=>{
       console.log('Unable to Register', error);
+      Helper.toast('Unable to Register - please try again!);
     });
   };
 };
@@ -52,8 +51,12 @@ export var saveUsername = (username) => {
 
 export var startLogin = (email, encryptedPassword) => {
   return (dispatch, getState) => {
-    return firebase.auth().signInWithEmailAndPassword(email, encryptedPassword).catch(function(error) {
+    return firebase.auth().signInWithEmailAndPassword(email, encryptedPassword).then(
+      ()=>{
+        Helper.toast('You have logged in succesfully!');
+      }).catch((error)=>{
       console.log('Unable to Login', error);
+      Helper.toast('Could\'nt log you in - please check your Email and Password!);
     });
   };
 };
@@ -135,6 +138,9 @@ export var startAddEvent = (title, description, type, address, lat = '',lng = ''
     return eventSave.then(() => {
       dispatch(addEvent(event));
       hashHistory.push('/');
+      Helper.toast('Event has been created succesfully!);
+    }).catch((error)=>{
+      Helper.toast('Unable to save Event - please try again!);
     });
   };
 };
