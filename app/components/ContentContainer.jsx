@@ -4,9 +4,19 @@ import * as Redux from 'react-redux';
 import router from 'app/router/';
 
 export var ContentContainer = React.createClass({
+
     render() {
+
+        var {toggleMap} = this.props;
+    	var mapActive ='col s12 m8 l5';
+
+    	if (toggleMap){
+    		//show Map on Mobile -> push Container to side
+    		mapActive += " push";
+    	}
+
         return (
-          <main className="col s12 m8 l5">
+          <main className={mapActive}>
 	        <div className="card-panel">
 	        	{router}
 	        </div>
@@ -15,4 +25,8 @@ export var ContentContainer = React.createClass({
     }
 });
 
-export default Redux.connect()(ContentContainer);
+export default Redux.connect(
+	(state) =>{
+		return state;
+	}
+)(ContentContainer);

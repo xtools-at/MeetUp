@@ -35,7 +35,8 @@ export var eventsReducer = (state = [], action) => {
 export var storageReducer = (state = {
   userLat: '',
   userLng: '',
-  activeEvent: ''
+  activeEvent: '',
+  toggleMap: false
   }, action) => {
   switch (action.type) {
     case 'STORE_LOCATION':
@@ -53,6 +54,16 @@ export var storageReducer = (state = {
       return {
         ...state,
         mapCenter
+      };
+    case 'TOGGLE_MAP':
+      return {
+        ...state,
+        !state.toggleMap
+      };
+    case 'SET_TOGGLE_MAP':
+      return {
+        ...state,
+        toggleMap
       };
     case 'LOGOUT':
       return {

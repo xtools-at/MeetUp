@@ -44,7 +44,17 @@ export var Main = React.createClass({
 			   activeEvent: eventId
 			}
 		);
-		$('main>.card-panel').scrollTop('#'+eventId);
+		//show Event Container on Marker Click
+		dispatch(
+			{
+				type: 'SET_TOGGLE_MAP',
+				toggleMap: false
+			}
+		);
+
+		$('main>.card-panel').animate({
+				scrollTop: $('#'+eventId).offset().top - 15
+			}, 300);
 	},
 	
     render() {

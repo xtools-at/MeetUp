@@ -99,6 +99,19 @@ export var setMapCenter = (lat, lng) => {
   }
 }
 
+export var toggleMap = () => {
+  return {
+    type: 'TOGGLE_MAP'
+  }
+}
+
+export var setToggleMap = (setTo) => {
+  return {
+    type: 'SET_TOGGLE_MAP',
+    toggleMap: setTo
+  }
+}
+
 /*
 export var fetchIpLocation = () => {
   return (dispatch, getState) => {
