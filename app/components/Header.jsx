@@ -24,6 +24,15 @@ export var Header = React.createClass({
   		var {dispatch} = this.props;
   		dispatch(actions.toggleMap());
   	},
+  	untoggleMap(){
+        var {dispatch} = this.props;
+        dispatch(
+            {
+                type: 'SET_TOGGLE_MAP',
+                toggleMap: false
+            }
+        );
+    },
     render() {
     	var user = firebase.auth().currentUser;
     	var {toggleMap} = this.props.storage;
@@ -40,14 +49,14 @@ export var Header = React.createClass({
 			    <ul className="right hide-on-med-and-down">
 					<li><a className="waves-effect" href="#/add">Add Event</a></li>
 			        <li><a className="waves-effect" href="#/" onClick={self.onLogout}>Logout</a></li>
-			        <li><a className="waves-effect" href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank">Fork on Github</a></li>
+			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank">Fork on Github</a></li>
 			    </ul>
 			 );
 			} else {
 				return(
 			      <ul className="right hide-on-med-and-down">
 					<li><a className="waves-effect" href="#/login">Login</a></li>
-			        <li><a className="waves-effect" href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank">Fork on Github</a></li>
+			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank">Fork on Github</a></li>
 			      </ul>
 			    );
 			}
@@ -56,7 +65,7 @@ export var Header = React.createClass({
     	function renderMobileNav(self){
 				if (user){
 					return (
-						<ul id="mobile-nav" className="side-nav">
+						<ul id="mobile-nav" className="side-nav" onClick={self.untoggleMap}>
 						    <li><div className="userView">
 						      <img className="background" src="/images/bg_nav.png" />
 						      <img className="circle" src="/images/useravatar.png" />
@@ -71,7 +80,7 @@ export var Header = React.createClass({
 					);
 				} else {
 					return(
-						<ul id="mobile-nav" className="side-nav">
+						<ul id="mobile-nav" className="side-nav" onClick={self.untoggleMap}>
 						    <li><div className="userView teal">
 						    	<img className="background" src="/images/bg_nav.png" />
 						      <a href="#/login"><span className="white-text name">Not logged in</span></a>
@@ -109,8 +118,6 @@ export var Header = React.createClass({
 
 export default Redux.connect(
     (state) => {
-    return {
-    	storage: state.storage
-    };
+    return state;
   }
 )(Header);

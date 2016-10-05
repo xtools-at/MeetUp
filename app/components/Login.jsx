@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import * as Redux from 'react-redux';
 import crypto from 'crypto';
 //import {githubProvider, googleProvider} from 'app/firebase/';
@@ -23,7 +24,7 @@ export var Login = React.createClass({
 
   onRegister(ev) {
     ev.preventDefault();
-    if ($('#login-form').checkValidity()){
+    if (ReactDOM.findDOMNode(this.refs.login_form).checkValidity()){
       //https://jsfiddle.net/scgymqct/
       var {dispatch} = this.props;
       var email = this.refs.user_email.value;
@@ -36,7 +37,7 @@ export var Login = React.createClass({
 
   onLogin(ev) {
     ev.preventDefault();
-    if ($('#login-form').checkValidity()){
+    if (ReactDOM.findDOMNode(this.refs.login_form).checkValidity()){
       var {dispatch} = this.props;
       var email = this.refs.user_email.value;
       var encryptedPassword = crypto.createHash('sha256').update(this.refs.user_password.value).digest('hex');
@@ -46,7 +47,8 @@ export var Login = React.createClass({
   },
 
   onValidate(ev) {
-    $(ev.target).checkValidity();
+    ev.target.checkValidity();
+    console.log('onValidate', ev.target);
   },
 
   render() {
@@ -87,9 +89,8 @@ export var Login = React.createClass({
               name="name" 
               autoComplete="name"
               autoFocus="true" 
-              pattern="^\S*(?=\S{3,})\S*$"
               required/>
-            <label htmlFor="user_name" className="active" data-error="Please enter at least 3 Characters">Your Name or Username</label>
+            <label htmlFor="user_name" className="active">Your Name or Username</label>
           </div>
       );
       button = (
@@ -178,7 +179,7 @@ export var Login = React.createClass({
           {subText}
         </div>
         
-        <form className="col s12" autoComplete="on" id="login-form">
+        <form className="col s12" autoComplete="on" id="login_form" ref="login_form">
           {usernameInput}
           <div className="input-field col s12">
             <input type="email" 

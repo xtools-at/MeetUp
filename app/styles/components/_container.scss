@@ -2,6 +2,10 @@
   position: absolute;
   top: 74px;
   right:0 !important;
+
+  @media #{$small-and-down} {
+   top: 60px;
+  }
 }
 
 main {
@@ -18,8 +22,15 @@ main {
 /*Push Container on Mobile*/
 
 main.push {
-	@media #{$small-and-down} {
+	@media #{$medium-and-down} {
 		transform: translateX(100%);
 	}
 
+}
+
+
+#event_form {
+  h2 {
+    margin-top: 1.4rem;
+  }
 }

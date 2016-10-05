@@ -11,14 +11,12 @@ var store = require('configureStore').configure();
 import firebase from 'app/firebase/';
 
 firebase.auth().onAuthStateChanged((user) => {
+  hashHistory.push('/');
   if (user) {
     store.dispatch(actions.login(user.uid));
-    //store.dispatch(actions.startAddTodos());
-    hashHistory.push('/');
     console.log('onAuthStateChanged, dispatched user.uid', user);
   } else {
     store.dispatch(actions.logout());
-    hashHistory.push('/');
     console.log('onAuthStateChanged','no user, fired logout');
   }
 });

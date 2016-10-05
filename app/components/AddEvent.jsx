@@ -95,7 +95,7 @@ export var AddEvent = React.createClass({
 
   onSubmit(ev) {
     ev.preventDefault();
-    if ($('#event-form').checkValidity()){
+    if (ReactDOM.findDOMNode(this.refs.event_form).checkValidity()){
       var {dispatch} = this.props;
       dispatch(actions.startAddEvent(
         this.refs.event_title.value, 
@@ -113,7 +113,8 @@ export var AddEvent = React.createClass({
   },
 
   onValidate(ev) {
-  	$(ev.target).checkValidity();
+  	ev.target.checkValidity();
+    console.log('onValidate', ev.target);
   },
 
   render() {
@@ -124,8 +125,8 @@ export var AddEvent = React.createClass({
     			<h1 tabIndex="1" className="center">Create Event</h1>
     			<p className="center">...by answering 4 simple questions:</p>
     		</div>
-    		<form className="col s12" autoComplete="on" id="event-form">
-    			<h2>
+    		<form className="col s12" autoComplete="on" id="event_form" ref="event_form">
+    			<h2 className="col s12">
     				<i className="material-icons prefix">event_note</i>
     				What?
     			</h2>
@@ -151,7 +152,7 @@ export var AddEvent = React.createClass({
 	            <label htmlFor="event_type" className="active">Of what type is your Event?</label>
 					</div>
 
-    			<h2>
+    			<h2 className="col s12">
     				<i className="material-icons prefix">location_on</i>
     				Where?
     			</h2>
@@ -162,7 +163,7 @@ export var AddEvent = React.createClass({
             <input type="hidden" id="event_lng" ref="event_lng"/>
           </div>
 
-    			<h2>
+    			<h2 className="col s12">
     				<i className="material-icons prefix">access_time</i>
     				When?
     			</h2>
@@ -192,7 +193,7 @@ export var AddEvent = React.createClass({
       			<label htmlFor="event_datetime_end" className="active">...and when does it end? (optional)</label>
    				</div>
 
-    			<h2>
+    			<h2 className="col s12">
     				<i className="material-icons prefix">supervisor_account</i>
     				Who?
     			</h2>
@@ -204,12 +205,12 @@ export var AddEvent = React.createClass({
    					<textarea id="event_guests" ref="event_guests" className="materialize-textarea validate" placeholder="William Shatner and Richard Dean Anderson ... or Sue and Kate "></textarea>
      				<label htmlFor="event_guests" className="active">Who is invited? (optional)</label>
    				</div>
-
-   				<button className="btn btn-large waves-effect waves-light" type="submit" name="action" onClick={this.onSubmit}>
-   					Add Event
-            <i className="material-icons right">send</i>
-          </button>
-
+          <div className="center">
+     				<button className="btn btn-large waves-effect waves-light" type="submit" name="action" onClick={this.onSubmit}>
+     					Add Event
+              <i className="material-icons right">send</i>
+            </button>
+          </div>
     		</form>
     	</div>
     )

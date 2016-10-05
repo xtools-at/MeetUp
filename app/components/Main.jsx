@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Redux from 'react-redux';
+import {hashHistory} from 'react-router';
 import {GoogleApiWrapper, Marker} from 'google-maps-react';
 import axios from 'axios';
 
@@ -15,9 +16,9 @@ export var Main = React.createClass({
 
 	componentDidMount() {
 			//fetch user location
-			var dispatch = this.props.dispatch;
+			var {dispatch} = this.props;
 	    	var coords = axios.get('http://ipinfo.io').then((res) => {
-	    		console.log(res.data);
+	    	  //console.log(res.data);
 		      if (res.data.loc){
 		        try{
 		          var latLngArray = res.data.loc.split(',');
@@ -37,6 +38,7 @@ export var Main = React.createClass({
 	},
 
 	onMarkerClick(eventId){
+		hashHistory.push('/');
 		var {dispatch} = this.props;
 		dispatch(
 			{
@@ -77,9 +79,10 @@ export var Main = React.createClass({
    		}
 
    		var {storage, google} = this.props;
+   		var center = (storage.mapCenter && storage.mapCenter.lat) ? storage.mapCenter : {lat: storage.userLat, lng: storage.userLng};
 
         return (
-        	var center = (storage.mapCenter && storage.mapCenter.lat) ? {storage.mapCenter} : {lat: storage.userLat, lng: storage.userLng};
+        	
 
            	<div className="row overall-container">
            		<Header />
@@ -96,9 +99,7 @@ export var Main = React.createClass({
 
 export default Redux.connect(
 	(state) => {
-    	return {
-    		storage: state.storage
-    	};
+    	return state;
   	}
 )(GoogleApiWrapper({
   apiKey: process.env.MAPS_API_KEY

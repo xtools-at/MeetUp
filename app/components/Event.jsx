@@ -33,7 +33,7 @@ export var Event = React.createClass({
 		}
 
 		function showLocationElement() {
-			console.log("Event LatLng:",lat, lng, userLat, userLng);
+			//console.log("Event LatLng:",lat, lng, userLat, userLng);
 			if (typeof lat != 'undefined' && typeof lng != 'undefined' && lat != '' && lng != ''){
 				var distance = calculateDistanceInKm(lat, lng, userLat, userLng);
 				if (distance !== distance){

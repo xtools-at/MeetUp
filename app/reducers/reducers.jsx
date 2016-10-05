@@ -53,17 +53,18 @@ export var storageReducer = (state = {
     case 'SET_MAP_CENTER':
       return {
         ...state,
-        mapCenter
+        mapCenter: action.mapCenter
       };
     case 'TOGGLE_MAP':
+      var toggle = !(state.toggleMap);
       return {
         ...state,
-        !state.toggleMap
+        toggleMap: toggle
       };
     case 'SET_TOGGLE_MAP':
       return {
         ...state,
-        toggleMap
+        toggleMap: action.toggleMap
       };
     case 'LOGOUT':
       return {

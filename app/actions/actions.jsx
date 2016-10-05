@@ -30,9 +30,9 @@ export var startRegister = (email, encryptedPassword, username) => {
       ()=>{
         dispatch(saveUsername(username));
         Helper.toast('You have registered succesfully!');
-      }).catch((error)=>{
+      }, (error)=>{
       console.log('Unable to Register', error);
-      Helper.toast('Unable to Register - please try again!);
+      Helper.toast('Unable to Register - please try again!');
     });
   };
 };
@@ -56,7 +56,7 @@ export var startLogin = (email, encryptedPassword) => {
         Helper.toast('You have logged in succesfully!');
       }).catch((error)=>{
       console.log('Unable to Login', error);
-      Helper.toast('Could\'nt log you in - please check your Email and Password!);
+      Helper.toast('Could not log you in - please check your Email and Password!');
     });
   };
 };
@@ -70,7 +70,7 @@ export var logout = () => {
 export var startLogout = () => {
   return (dispatch, getState) => {
     return firebase.auth().signOut().then(() => {
-      console.log('Logged out!');
+      Helper.toast('Succesfully signed out!');
     });
   };
 };
@@ -158,9 +158,9 @@ export var startAddEvent = (title, description, type, address, lat = '',lng = ''
     return eventSave.then(() => {
       dispatch(addEvent(event));
       hashHistory.push('/');
-      Helper.toast('Event has been created succesfully!);
+      Helper.toast('Event has been created succesfully!');
     }).catch((error)=>{
-      Helper.toast('Unable to save Event - please try again!);
+      Helper.toast('Unable to save Event - please try again!');
     });
   };
 };

@@ -2,9 +2,29 @@ import React from 'react';
 import * as Redux from 'react-redux';
 import {hashHistory} from 'react-router';
 
+import * as actions from 'actions';
+
 export var ActionButton = React.createClass({
 
+    onFabClick(route){
+        hashHistory.push(route);
+        var {dispatch} = this.props;
+        dispatch(
+            {
+                type: 'SET_TOGGLE_MAP',
+                toggleMap: false
+            }
+        );
+    },
+
     render() {
+
+        /*
+        //hide Fab if on AddEvent Page
+        if (???){
+            return '';
+        }
+        */
 
         var route;
         var icon;
@@ -20,7 +40,7 @@ export var ActionButton = React.createClass({
 
         return (
             <div className="fixed-action-btn">
-                <a onClick={() => {hashHistory.push(route)}} className="btn-floating btn-large orange accent-4 waves-effect waves-light">
+                <a onClick={() => {this.onFabClick(route)}} className="btn-floating btn-large deep-orange waves-effect waves-light">
                   <i className="large material-icons">{icon}</i>
                 </a>
             </div>
