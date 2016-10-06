@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom'
 import * as Redux from 'react-redux';
 import moment from 'moment';
 import {GoogleApiWrapper} from 'google-maps-react';
-import firebase from 'app/firebase/';
+import characterCounter from 'materialize-css/dist/js/materialize.min';
 
+import firebase from 'app/firebase/';
 import * as actions from 'actions';
 
 export var AddEvent = React.createClass({
+
+  componentDidMount(){
+    $('#event_description, #event_guests').characterCounter();
+  };
 
   initAutocomplete(nextProps){
     var google = nextProps.google;
