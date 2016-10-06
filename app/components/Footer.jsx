@@ -10,7 +10,7 @@ export var Footer = React.createClass({
 	            <div className="container">
 	            	<div className="row center">
 	            		<div className="col s12 m4">
-	            			© 2016 xTools
+	            			© 2016 <a className="grey-text text-lighten-4" target="_blank" href="http://www.xtools.at">xTools</a>
 	            		</div>
 	            		<div className="col s12 m8">
 	            			Built with&nbsp;
