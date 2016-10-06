@@ -1,18 +1,31 @@
  /*Global*/
 
-/*
- body {
-  width: 100vw;
-  overflow: hidden;
- }
-*/
+html, body, body>#app, body>#app>div {height:100%;}
 
 .row.overall-container {
-	height: 100vh;
+	height: 100%;
 	margin-bottom:0;
   position:relative;
   overflow-x: hidden;
 }
+
+main {
+
+  @media #{$small-and-down} {
+    width:100%;
+  }
+
+  @media #{$medium-only} {
+    width:590px;
+  }
+
+  @media #{$large-and-up} {
+    width:650px;
+  }
+
+}
+
+
 
  /*Nav*/
 
@@ -25,7 +38,7 @@ nav .brand-logo {
 	}
 }
 
-/*Sticky Footer*/
+/*Sticky Footer
 
   body {
     display: flex;
@@ -36,11 +49,11 @@ nav .brand-logo {
   main {
     flex: 1 0 auto;
   }
-
+*/ 
   footer.page-footer {
   	margin-top:0;
   }
-      
+  
 
 /*Maps*/
 

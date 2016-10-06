@@ -5,6 +5,11 @@
 		font-weight:400;
 	}
 
+	.card-image{
+		@media #{$small-and-down} {
+			display:none;
+		}
+	}
 	.chip .chip-icon {
 	    font-size: 16px;
 	    line-height: 32px;
@@ -23,9 +28,13 @@
 		border:0px none transparent;
 
 		.collection-item {
+			line-height: 2rem;
+			background-color: transparent;
+
 			i.material-icons{
 				float:left;
 				line-height:1.9rem;
+				padding-right:10px;
 			}
 		}
 
@@ -36,6 +45,7 @@
 
 	.event-description {
 		font-size:1.5rem;
+		text-align:center;
 	}
 	
 }

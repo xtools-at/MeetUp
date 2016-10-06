@@ -47,16 +47,16 @@ export var Header = React.createClass({
 			if (user) {
 			 return(
 			    <ul className="right hide-on-med-and-down">
-					<li><a className="waves-effect" href="#/add"><i class="material-icons left">add</i>Add Event</a></li>
-			        <li><a className="waves-effect" href="#/" onClick={self.onLogout}><i class="material-icons left">close</i>Logout</a></li>
-			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank"><i class="material-icons left">code</i>Fork on Github</a></li>
+					<li><a className="waves-effect" href="#/add"><i className="material-icons left">add</i>Add Event</a></li>
+			        <li><a className="waves-effect" href="#/" onClick={self.onLogout}><i className="material-icons left">close</i>Logout</a></li>
+			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank"><i className="material-icons left">code</i>Fork on Github</a></li>
 			    </ul>
 			 );
 			} else {
 				return(
 			      <ul className="right hide-on-med-and-down">
-					<li><a className="waves-effect" href="#/login"><i class="material-icons left">account_circle</i>Login</a></li>
-			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank"><i class="material-icons left">code</i>Fork on Github</a></li>
+					<li><a className="waves-effect" href="#/login"><i className="material-icons left">account_circle</i>Login</a></li>
+			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank"><i className="material-icons left">code</i>Fork on Github</a></li>
 			      </ul>
 			    );
 			}
@@ -96,19 +96,19 @@ export var Header = React.createClass({
       return (
         <header>
          	<nav>
-				    <div className="nav-wrapper">
-			      	<a href="#/" className="brand-logo" onClick={this.untoggleMap}><i className="material-icons">event_note</i>MeetUp</a>
-			      	<a data-activates="mobile-nav" className="button-collapse"><i className="material-icons">menu</i></a>
-							<ul className="right hide-on-large-only">
-					 			<li className={navIconActive}>
-					 				<a href="#/" onClick={this.toggleMap}>
-						 				<i className="material-icons left">map</i>
-						 				<span className="sr-only">Toggle Map</span>
-						 			</a>
-						 		</li>
-					 		</ul>
-				  		{renderLinks(this)}
-				  		{renderMobileNav(this)}
+			    <div className="nav-wrapper">
+		      	<a href="#/" className="brand-logo" onClick={this.untoggleMap}><i className="material-icons">event_note</i>MeetUp</a>
+		      	<a data-activates="mobile-nav" className="button-collapse"><i className="material-icons">menu</i></a>
+						<ul className="right">
+				 			<li className={navIconActive}>
+				 				<a href="#/" onClick={this.toggleMap}>
+					 				<i className="material-icons left">map</i>
+					 				<span className="sr-only">Toggle Map</span>
+					 			</a>
+					 		</li>
+				 		</ul>
+			  		{renderLinks(this)}
+			  		{renderMobileNav(this)}
 			    </div>
 		  	</nav>
       </header>

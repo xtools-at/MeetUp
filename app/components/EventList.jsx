@@ -24,9 +24,9 @@ export var EventList = React.createClass({
         );
       }
 
-      return events.map((event) => {
+      return events.map((event, index) => {
         return (
-          <Event key={event.id} userLat={storage.userLat} userLng={storage.userLng} activeEvent={storage.activeEvent} {...event}/>
+          <Event key={index} index={index} userLat={storage.userLat} userLng={storage.userLng} activeEvent={storage.activeEvent} {...event}/>
         );
       });
     };

@@ -3,16 +3,11 @@ import ReactDOM from 'react-dom'
 import * as Redux from 'react-redux';
 import moment from 'moment';
 import {GoogleApiWrapper} from 'google-maps-react';
-import characterCounter from 'materialize-css/dist/js/materialize.min';
 
 import firebase from 'app/firebase/';
 import * as actions from 'actions';
 
 export var AddEvent = React.createClass({
-
-  componentDidMount(){
-    $('#event_description, #event_guests').characterCounter();
-  },
 
   initAutocomplete(nextProps){
     var google = nextProps.google;
@@ -140,7 +135,7 @@ export var AddEvent = React.createClass({
       			<label htmlFor="event_title" className="active">Title of your Event</label>
           </div>
           <div className="input-field col s12">
-     				<input onBlur={this.onValidate} type="text" length="100" maxLength="100" pattern="^.{1,100}$"  className="validate" placeholder="The hottest party on this planet" id="event_description" ref="event_description" autoComplete="description" name="description" required/>
+     				<input onBlur={this.onValidate} type="text" className="validate" placeholder="The hottest party on this planet" id="event_description" ref="event_description" autoComplete="description" name="description" required/>
       			<label htmlFor="event_description" className="active">Tell me something about your Event</label>
      			</div>
           <div className="input-field col s12">
@@ -211,8 +206,8 @@ export var AddEvent = React.createClass({
       			<label htmlFor="event_host" className="active">Who is hosting the event?</label>
      			</div>
    				<div className="input-field col s12">
-   					<textarea id="event_guests" ref="event_guests" length="180" maxLength="180" className="materialize-textarea validate" placeholder="William Shatner and Richard Dean Anderson ... or Sue and Kate" name="guests" autoComplete="guests"></textarea>
-     				<label htmlFor="event_guests" className="active">Who is invited? (optional)</label>
+   					<textarea id="event_guests" ref="event_guests" maxLength="180" className="materialize-textarea validate" placeholder="William Shatner and Richard Dean Anderson ... or Sue and Kate" name="guests" autoComplete="guests"></textarea>
+     				<label htmlFor="event_guests" className="active" data-error="Please enter max. 180 Characters">Who is invited? (optional)</label>
    				</div>
           <div className="center">
      				<button className="btn btn-large waves-effect waves-light" type="submit" name="action" onClick={this.onSubmit}>

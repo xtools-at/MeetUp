@@ -113,7 +113,7 @@ export var Login = React.createClass({
       autofocusEmail='false';
       passwordErrorText = 'Your password must meet the following criteria: At least 8 characters long and at least one lowercase, uppercase Letter and one Number';
       passwordSecurityInfo = (
-        <p>Your password is transmitted and stored as encrypted Hash.</p>
+        <p style={{fontSize: '0.8rem'}}>Your password is transmitted and stored military-grade encrypted.</p>
       );
 
       if (this.props.additionalFields){
@@ -213,7 +213,7 @@ export var Login = React.createClass({
               required/>
             <label htmlFor="user_password" className="active" data-error={passwordErrorText}>Password</label>
         	</div>
-          {passwordSecurityInfo}
+
           {additionalInfosToggle}
           {additionalFields}
           <div className="center">

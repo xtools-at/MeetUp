@@ -8,11 +8,12 @@ export var ContentContainer = React.createClass({
     render() {
 
         var {toggleMap} = this.props.storage;
-    	var mapActive ='col s12 m8 l5';
+    	//var mapActive ='col s12 m8 l5';
+        var mapActive = 'col ';
 
     	if (toggleMap){
     		//show Map on Mobile -> push Container to side
-    		mapActive += " push";
+    		mapActive += "push";
     	}
 
         return (

@@ -15,7 +15,7 @@ export var Event = React.createClass({
 
 	render() {
 
-	  	var {id, title, description, type, address, lat, lng, timeStart, host, userLat, userLng} = this.props;
+	  	var {id, title, description, type, address, lat, lng, timeStart, host, userLat, userLng, index} = this.props;
 	  	timeStart = moment(timeStart).format('D.MMM.\'YY @ HH:mm');
 
 		function calculateDistanceInKm(lat1, lon1, lat2, lon2){
@@ -49,13 +49,14 @@ export var Event = React.createClass({
 		}
 
 		var isEventActive = (id == this.props.activeEvent) ? 'card horizontal teal lighten-4' : 'card horizontal';
+		var randomImageSrc = "http://lorempixel.com/200/380/city/"+index;
 
 		
 
 	    return (
 		    <div className={isEventActive} id={id} onClick={this.onEventClick}>
 		      <div className="card-image">
-		        <img src="http://lorempixel.com/200/380/city/" alt="" />
+		        <img src={randomImageSrc} alt="" />
 		      </div>
 		      <div className="card-stacked">
 		        <div className="card-content">
