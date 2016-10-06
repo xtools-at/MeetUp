@@ -32,7 +32,7 @@ export var EventList = React.createClass({
     };
 
     return (
-      <div>
+      <div id="event-list">
         <h1 className="center">Latest Events</h1>
         <p className="center">You should check these out!</p>
         {renderEvents()}

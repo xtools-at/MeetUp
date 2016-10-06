@@ -25,8 +25,8 @@ export var startOauthLogin = (provider) => {
 };
 
 export var startRegister = (email, encryptedPassword, username) => {
-  return (dispatch, getState) => {
-    return firebase.auth().createUserWithEmailAndPassword(email, encryptedPassword).then(
+  return (dispatch) => {
+    /*return*/ firebase.auth().createUserWithEmailAndPassword(email, encryptedPassword).then(
       ()=>{
         dispatch(saveUsername(username));
         Helper.toast('You have registered succesfully!');

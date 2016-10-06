@@ -41,7 +41,7 @@ export var Event = React.createClass({
 					return;
 				}
 				return (
-					<span className="chip">~{distance} km away from you</span>
+					<span className="chip"><i className="material-icons chip-icon">near_me</i>~{distance} km away from you</span>
 				);
 			} else {
 				return;
@@ -55,26 +55,22 @@ export var Event = React.createClass({
 	    return (
 		    <div className={isEventActive} id={id} onClick={this.onEventClick}>
 		      <div className="card-image">
-		        <i className="material-icons large">event_note</i>
+		        <img src="http://lorempixel.com/200/380/city/" alt="" />
 		      </div>
 		      <div className="card-stacked">
 		        <div className="card-content">
-		        	<h2>{title}</h2>
-					<span className="chip">{type}</span>
-		          	<p>
-		          		<i className="material-icons">account_circle</i>
-		          		by {host}
-		          	</p>
-		          	<p>
-		          		<i className="material-icons">location_on</i>
-		          		{address}
-		          		{showLocationElement()}
-		          	</p>
-		          	<p>
-		          		<i className="material-icons">access_time</i>
-		          		starting {timeStart}
-		          	</p>
-		          	<p>{description}</p>
+		        	<h2>
+		        		<span className="card-title">{title}</span> <span className="card-title grey-text event-host">by {host}</span>
+		        	</h2>
+		        	<div>
+		        		<span className="chip"><i className="material-icons chip-icon">event_note</i>{type}</span>&nbsp;
+		        		{showLocationElement()}
+		        	</div>
+		        	<ul className="collection">
+					    <li className="collection-item"><i className="material-icons">access_time</i>starting {timeStart}</li>
+					    <li className="collection-item"><i className="material-icons">location_on</i>{address}</li>
+				    </ul>
+		          	<div className="event-description grey-text text-darken-2">"{description}"</div>
 		        </div>
 		      </div>
 		    </div>

@@ -1,0 +1,41 @@
+#event-list .card {
+
+	.card-title.event-host {
+		font-size: 18px;
+		font-weight:400;
+	}
+
+	.chip .chip-icon {
+	    font-size: 16px;
+	    line-height: 32px;
+	    padding-right: 8px;
+	    float: left;
+	}
+
+	.chip .chip-icon.chip-right {
+	    float: right;
+	    padding-right: 0px;
+	    padding-left:8px;
+	}
+
+
+	.collection {
+		border:0px none transparent;
+
+		.collection-item {
+			i.material-icons{
+				float:left;
+				line-height:1.9rem;
+			}
+		}
+
+		.collection-item:first-child {
+			border-top: 1px solid #e0e0e0;
+		}
+	}
+
+	.event-description {
+		font-size:1.5rem;
+	}
+	
+}
