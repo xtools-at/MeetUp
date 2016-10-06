@@ -47,16 +47,16 @@ export var Header = React.createClass({
 			if (user) {
 			 return(
 			    <ul className="right hide-on-med-and-down">
-					<li><a className="waves-effect" href="#/add">Add Event</a></li>
-			        <li><a className="waves-effect" href="#/" onClick={self.onLogout}>Logout</a></li>
-			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank">Fork on Github</a></li>
+					<li><a className="waves-effect" href="#/add"><i class="material-icons left">add</i>Add Event</a></li>
+			        <li><a className="waves-effect" href="#/" onClick={self.onLogout}><i class="material-icons left">close</i>Logout</a></li>
+			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank"><i class="material-icons left">code</i>Fork on Github</a></li>
 			    </ul>
 			 );
 			} else {
 				return(
 			      <ul className="right hide-on-med-and-down">
-					<li><a className="waves-effect" href="#/login">Login</a></li>
-			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank">Fork on Github</a></li>
+					<li><a className="waves-effect" href="#/login"><i class="material-icons left">account_circle</i>Login</a></li>
+			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank"><i class="material-icons left">code</i>Fork on Github</a></li>
 			      </ul>
 			    );
 			}
@@ -83,7 +83,7 @@ export var Header = React.createClass({
 						<ul id="mobile-nav" className="side-nav" onClick={self.untoggleMap}>
 						    <li><div className="userView teal">
 						    	<img className="background" src="/images/bg_nav.png" />
-						      <a href="#/login"><span className="white-text name">Not logged in</span></a>
+						      	<a href="#/login"><span className="white-text name">Not logged in</span></a>
 						    </div></li>
 						    <li><a className="waves-effect" href="#/login" onClick={self.hideNav}><i className="material-icons">account_circle</i>Login</a></li>
 				        	<li><div className="divider"></div></li>
