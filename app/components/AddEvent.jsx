@@ -12,7 +12,7 @@ export var AddEvent = React.createClass({
 
   componentDidMount(){
     $('#event_description, #event_guests').characterCounter();
-  };
+  },
 
   initAutocomplete(nextProps){
     var google = nextProps.google;
