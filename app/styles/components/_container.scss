@@ -10,7 +10,7 @@
 
 main {
   transition: all 0.3s ease-out 0s;
-  transform: translateX(0);
+  //transform: translateX(0);
 
   .card-panel {
     max-height: calc(100vh - 120px);
@@ -21,9 +21,10 @@ main {
 
 /*Push Container on Mobile*/
 
-main.push {
+.row main.col.push {
 	@media #{$medium-and-down} {
-		transform: translateX(100%);
+		//transform: translateX(100%);
+    right: -100% !important;
 	}
 
 }
