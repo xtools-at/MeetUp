@@ -131,15 +131,15 @@ export var AddEvent = React.createClass({
     				What?
     			</h2>
     			<div className="input-field col s12">
-     				<input onBlur={this.onValidate} type="text" className="validate" placeholder="e.g. Udacity Alumni Party" id="event_title" ref="event_title" autoFocus="true" autoComplete="title" required/>
+     				<input onBlur={this.onValidate} type="text" className="validate" placeholder="e.g. Udacity Alumni Party" id="event_title" ref="event_title" name="event" autoFocus="true" autoComplete="event" required/>
       			<label htmlFor="event_title" className="active">Title of your Event</label>
           </div>
           <div className="input-field col s12">
-     				<input onBlur={this.onValidate} type="text" className="validate" placeholder="The hottest party on this planet" id="event_description" ref="event_description" autoComplete="description" required/>
+     				<input onBlur={this.onValidate} type="text" length="100" maxLength="100" pattern="^.{1,100}$"  className="validate" placeholder="The hottest party on this planet" id="event_description" ref="event_description" autoComplete="description" name="description" required/>
       			<label htmlFor="event_description" className="active">Tell me something about your Event</label>
      			</div>
           <div className="input-field col s12">
-	     			<input onBlur={this.onValidate} type="text" list="event_type_list" placeholder="Party" id="event_type" ref="event_type" className="autocomplete validate" autoComplete="type" required/>
+	     			<input onBlur={this.onValidate} type="text" list="event_type_list" placeholder="Party" id="event_type" ref="event_type" autoComplete="type" name="type" className="autocomplete validate" autoComplete="type" required/>
 	      		<datalist id="event_type_list">
 	              <option value="Birthday" />
 	              <option value="Party" />
@@ -176,6 +176,8 @@ export var AddEvent = React.createClass({
               id="event_datetime_start" 
               ref="event_datetime_start" 
               placeholder="" 
+              name="start" 
+              autoComplete="start" 
               onChange={this.startDateChanged}
               required/>
       			<label htmlFor="event_datetime_start" className="active">When does it start?</label>
@@ -189,6 +191,8 @@ export var AddEvent = React.createClass({
               id="event_datetime_end" 
               ref="event_datetime_end" 
               placeholder="" 
+              name="end" 
+              autoComplete="end" 
               onChange={this.endDateChanged}/>
       			<label htmlFor="event_datetime_end" className="active">...and when does it end? (optional)</label>
    				</div>
@@ -202,7 +206,7 @@ export var AddEvent = React.createClass({
       			<label htmlFor="event_host" className="active">Who is hosting the event?</label>
      			</div>
    				<div className="input-field col s12">
-   					<textarea id="event_guests" ref="event_guests" className="materialize-textarea validate" placeholder="William Shatner and Richard Dean Anderson ... or Sue and Kate "></textarea>
+   					<textarea id="event_guests" ref="event_guests" length="180" maxLength="180" className="materialize-textarea validate" placeholder="William Shatner and Richard Dean Anderson ... or Sue and Kate" name="guests" autoComplete="guests"></textarea>
      				<label htmlFor="event_guests" className="active">Who is invited? (optional)</label>
    				</div>
           <div className="center">
