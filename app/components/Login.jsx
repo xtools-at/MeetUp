@@ -82,7 +82,7 @@ export var Login = React.createClass({
         <div className="input-field col s12">
             <input type="text" 
               className="validate" 
-              onFocusOut={this.onValidate} 
+              onBlur={this.onValidate} 
               placeholder="Guybrush Threepwood or Frank-the-Tank" 
               id="user_name" 
               ref="user_name" 
@@ -183,7 +183,7 @@ export var Login = React.createClass({
           {usernameInput}
           <div className="input-field col s12">
             <input type="email" 
-              onFocusOut={this.onValidate} 
+              onBlur={this.onValidate} 
               className="validate" 
               placeholder="foo@bar.com" 
               id="user_email" 
@@ -196,7 +196,7 @@ export var Login = React.createClass({
           </div>
           <div className="input-field col s12">
             <input type="password"
-              onFocusOut={this.onValidate} 
+              onBlur={this.onValidate} 
               className="validate" 
               pattern="^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$"  
               placeholder="**********" 

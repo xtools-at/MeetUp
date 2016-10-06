@@ -131,15 +131,15 @@ export var AddEvent = React.createClass({
     				What?
     			</h2>
     			<div className="input-field col s12">
-     				<input onFocusOut={this.onValidate} type="text" className="validate" placeholder="e.g. Udacity Alumni Party" id="event_title" ref="event_title" autoFocus="true" autoComplete="title" required/>
+     				<input onBlur={this.onValidate} type="text" className="validate" placeholder="e.g. Udacity Alumni Party" id="event_title" ref="event_title" autoFocus="true" autoComplete="title" required/>
       			<label htmlFor="event_title" className="active">Title of your Event</label>
           </div>
           <div className="input-field col s12">
-     				<input onFocusOut={this.onValidate} type="text" className="validate" placeholder="The hottest party on this planet" id="event_description" ref="event_description" autoComplete="description" required/>
+     				<input onBlur={this.onValidate} type="text" className="validate" placeholder="The hottest party on this planet" id="event_description" ref="event_description" autoComplete="description" required/>
       			<label htmlFor="event_description" className="active">Tell me something about your Event</label>
      			</div>
           <div className="input-field col s12">
-	     			<input onFocusOut={this.onValidate} type="text" list="event_type_list" placeholder="Party" id="event_type" ref="event_type" className="autocomplete validate" autoComplete="type" required/>
+	     			<input onBlur={this.onValidate} type="text" list="event_type_list" placeholder="Party" id="event_type" ref="event_type" className="autocomplete validate" autoComplete="type" required/>
 	      		<datalist id="event_type_list">
 	              <option value="Birthday" />
 	              <option value="Party" />
@@ -157,7 +157,7 @@ export var AddEvent = React.createClass({
     				Where?
     			</h2>
     			<div className="input-field col s12">
-            <input className="validate" type="text" placeholder="Just start typing, we've got you covered" id="event_address" ref="event_address" name="address" autoComplete="street-address" onFocusOut={this.geocodeAddress} required/>
+            <input className="validate" type="text" placeholder="Just start typing, we've got you covered" id="event_address" ref="event_address" name="address" autoComplete="street-address" onBlur={this.geocodeAddress} required/>
             <label htmlFor="event_address" className="active">Location of your event</label>
             <input type="hidden" id="event_lat" ref="event_lat"/>
             <input type="hidden" id="event_lng" ref="event_lng"/>
@@ -169,7 +169,7 @@ export var AddEvent = React.createClass({
     			</h2>
     			<div className="input-field col s12">
      				<input type="datetime-local" 
-              onFocusOut={this.onValidate} 
+              onBlur={this.onValidate} 
               className="validate" 
               defaultValue={moment().format('YYYY-MM-DDTHH:mm')} 
               min={moment().format('YYYY-MM-DDTHH:mm')} 
@@ -182,7 +182,7 @@ export var AddEvent = React.createClass({
    				</div>
    				<div className="input-field col s12">
      				<input type="datetime-local" 
-              onFocusOut={this.onValidate}
+              onBlur={this.onValidate}
               className="validate" 
               defaultValue={moment().format('YYYY-MM-DDTHH:mm')} 
               min={moment().format('YYYY-MM-DDTHH:mm')} 
@@ -198,7 +198,7 @@ export var AddEvent = React.createClass({
     				Who?
     			</h2>
     			<div className="input-field col s12">
-     				<input onFocusOut={this.onValidate} type="text" className="validate" defaultValue={firebase.auth().currentUser.displayName} placeholder="Udacity, Google, ... or Peter" id="event_host" ref="event_host" name="name" autoComplete="name" required/>
+     				<input onBlur={this.onValidate} type="text" className="validate" defaultValue={firebase.auth().currentUser.displayName} placeholder="Udacity, Google, ... or Peter" id="event_host" ref="event_host" name="name" autoComplete="name" required/>
       			<label htmlFor="event_host" className="active">Who is hosting the event?</label>
      			</div>
    				<div className="input-field col s12">
