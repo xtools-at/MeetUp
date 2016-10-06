@@ -97,7 +97,7 @@ export var Header = React.createClass({
         <header>
          	<nav>
 				    <div className="nav-wrapper">
-			      	<a href="#/" className="brand-logo"><i className="material-icons">event_note</i>MeetUp</a>
+			      	<a href="#/" className="brand-logo" onClick={this.untoggleMap}><i className="material-icons">event_note</i>MeetUp</a>
 			      	<a data-activates="mobile-nav" className="button-collapse"><i className="material-icons">menu</i></a>
 							<ul className="right hide-on-large-only">
 					 			<li className={navIconActive}>
