@@ -36,8 +36,8 @@ export var Header = React.createClass({
     render() {
     	var user = firebase.auth().currentUser;
     	var {toggleMap} = this.props.storage;
+    	
     	var navIconActive ='';
-
     	if (toggleMap){
     		//show Map on Mobile -> set Icon to active
     		navIconActive="active"
