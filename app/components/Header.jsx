@@ -81,7 +81,7 @@ export var Header = React.createClass({
 				} else {
 					return(
 						<ul id="mobile-nav" className="side-nav" onClick={self.untoggleMap}>
-						    <li><div className="userView teal">
+						    <li><div className="userView">
 						    	<img className="background" src="/images/bg_nav.png" />
 						      	<a href="#/login"><span className="white-text name">Not logged in</span></a>
 						    </div></li>

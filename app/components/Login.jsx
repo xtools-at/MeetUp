@@ -51,6 +51,16 @@ export var Login = React.createClass({
     console.log('onValidate', ev.target);
   },
 
+  valiDate(ev) {
+    var obj = ev.target;
+    if (obj.checkValidity()){
+      $(obj).addClass('valid').removeClass('invalid');
+    } else {
+      $(obj).addClass('invalid').removeClass('valid');
+    }
+    console.log('valiDate', obj);
+  },
+
   render() {
     var {login} = this.props.route;
     var heading,subText,usernameInput,button,additionalInfosToggle, additionalFields, autofocusEmail, passwordErrorText, passwordSecurityInfo;
@@ -132,6 +142,7 @@ export var Login = React.createClass({
 
             <div className="input-field col s12">
               <input type="date" 
+                onBlur={this.valiDate} 
                 className="validate" 
                 defaultValue="1980-01-01" 
                 id="add_birthday" 

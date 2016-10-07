@@ -26,10 +26,10 @@ export var startOauthLogin = (provider) => {
 
 export var startRegister = (email, encryptedPassword, username) => {
   return (dispatch) => {
-    /*return*/ firebase.auth().createUserWithEmailAndPassword(email, encryptedPassword).then(
+    return firebase.auth().createUserWithEmailAndPassword(email, encryptedPassword).then(
       ()=>{
-        dispatch(saveUsername(username));
         Helper.toast('You have registered succesfully!');
+        dispatch(saveUsername(username));
       }, (error)=>{
       console.log('Unable to Register', error);
       Helper.toast('Unable to Register - please try again!');

@@ -48,6 +48,8 @@ export var AddEvent = React.createClass({
         $('#event_lat').val(''+results[0].geometry.location.lat());
         $('#event_lng').val(''+results[0].geometry.location.lng());
 
+        console.log('geocoding success', results[0].geometry.location);
+
       } else {
         console.log('geocoding failed', status);
         this.setAddressAccurate(false);
@@ -117,6 +119,16 @@ export var AddEvent = React.createClass({
     console.log('onValidate', ev.target);
   },
 
+  valiDate(ev) {
+    var obj = ev.target;
+    if (obj.checkValidity()){
+      $(obj).addClass('valid').removeClass('invalid');
+    } else {
+      $(obj).addClass('invalid').removeClass('valid');
+    }
+    console.log('valiDate', obj);
+  },
+
   render() {
 
     return (
@@ -169,8 +181,8 @@ export var AddEvent = React.createClass({
     			</h2>
     			<div className="input-field col s12">
      				<input type="datetime-local" 
-              onBlur={this.onValidate} 
-              className="validate" 
+              onBlur={this.valiDate} 
+              className="validate xx" 
               defaultValue={moment().format('YYYY-MM-DDTHH:mm')} 
               min={moment().format('YYYY-MM-DDTHH:mm')} 
               id="event_datetime_start" 
@@ -180,11 +192,11 @@ export var AddEvent = React.createClass({
               autoComplete="start" 
               onChange={this.startDateChanged}
               required/>
-      			<label htmlFor="event_datetime_start" className="active">When does it start?</label>
+      			<label htmlFor="event_datetime_start" className="active" data-error="Must be in the future">When does it start?</label>
    				</div>
    				<div className="input-field col s12">
      				<input type="datetime-local" 
-              onBlur={this.onValidate}
+              onBlur={this.valiDate} 
               className="validate" 
               defaultValue={moment().format('YYYY-MM-DDTHH:mm')} 
               min={moment().format('YYYY-MM-DDTHH:mm')} 
@@ -194,7 +206,7 @@ export var AddEvent = React.createClass({
               name="end" 
               autoComplete="end" 
               onChange={this.endDateChanged}/>
-      			<label htmlFor="event_datetime_end" className="active">...and when does it end? (optional)</label>
+      			<label htmlFor="event_datetime_end" className="active" data-error="Can not be before beginning">...and when does it end? (optional)</label>
    				</div>
 
     			<h2 className="col s12">
