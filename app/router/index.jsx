@@ -17,7 +17,7 @@ var requireLogin = (nextState, replace, next) => {
 var redirectIfLoggedIn = (nextState, replace, next) => {
   if (firebase.auth().currentUser) {
     replace('/');
-    console.log('already logged in, redirect to home');
+    //console.log('already logged in, redirect to home');
   }
   next();
 };

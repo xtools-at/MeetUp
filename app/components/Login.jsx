@@ -7,17 +7,17 @@ import crypto from 'crypto';
 import * as actions from 'actions';
 
 export var Login = React.createClass({
-
+  /*
   onOauthLogin(provider) {
-    /*
+    
     var {dispatch} = this.props;
     dispatch(actions.startOauthLogin(provider));
     //onClick={() => {this.onOauthLogin(githubProvider)}}
-    */
+    
   },
-
+  */
   onToggleAdditionalFields(){
-    console.log('onToggleAdditionalFields');
+    //console.log('onToggleAdditionalFields');
     var {dispatch} = this.props;
     dispatch(actions.toggleAdditionalFields());
   },
@@ -30,7 +30,7 @@ export var Login = React.createClass({
       var email = this.refs.user_email.value;
       var name = this.refs.user_name.value;
       var encryptedPassword = crypto.createHash('sha256').update(this.refs.user_password.value).digest('hex');
-      console.log('onRegister called', email, name, encryptedPassword);
+      //console.log('onRegister called', email, name, encryptedPassword);
       dispatch(actions.startRegister(email, encryptedPassword, name));
     }
   },
@@ -41,14 +41,14 @@ export var Login = React.createClass({
       var {dispatch} = this.props;
       var email = this.refs.user_email.value;
       var encryptedPassword = crypto.createHash('sha256').update(this.refs.user_password.value).digest('hex');
-      console.log('onLogin called', email, encryptedPassword);
+      //console.log('onLogin called', email, encryptedPassword);
       dispatch(actions.startLogin(email, encryptedPassword));
     }
   },
 
   onValidate(ev) {
     ev.target.checkValidity();
-    console.log('onValidate', ev.target);
+    //console.log('onValidate', ev.target);
   },
 
   valiDate(ev) {
@@ -58,7 +58,7 @@ export var Login = React.createClass({
     } else {
       $(obj).addClass('invalid').removeClass('valid');
     }
-    console.log('valiDate', obj);
+    //console.log('valiDate', obj);
   },
 
   render() {

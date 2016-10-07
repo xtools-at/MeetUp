@@ -116,7 +116,7 @@ export var AddEvent = React.createClass({
 
   onValidate(ev) {
   	ev.target.checkValidity();
-    console.log('onValidate', ev.target);
+    //console.log('onValidate', ev.target);
   },
 
   valiDate(ev) {
@@ -126,7 +126,7 @@ export var AddEvent = React.createClass({
     } else {
       $(obj).addClass('invalid').removeClass('valid');
     }
-    console.log('valiDate', obj);
+    //console.log('valiDate', obj);
   },
 
   render() {

@@ -14,10 +14,10 @@ firebase.auth().onAuthStateChanged((user) => {
   hashHistory.push('/');
   if (user) {
     store.dispatch(actions.login(user.uid));
-    console.log('onAuthStateChanged, dispatched user.uid', user);
+    //console.log('onAuthStateChanged, dispatched user.uid', user);
   } else {
     store.dispatch(actions.logout());
-    console.log('onAuthStateChanged','no user, fired logout');
+    //console.log('onAuthStateChanged','no user, fired logout');
   }
 });
 

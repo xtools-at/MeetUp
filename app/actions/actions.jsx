@@ -17,9 +17,9 @@ export var login = (uid) => {
 export var startOauthLogin = (provider) => {
   return (dispatch, getState) => {
     return firebase.auth().signInWithPopup(provider).then((result) => {
-      console.log('Auth worked', result);
+      //console.log('Auth worked', result);
     }, (error) => {
-      console.log('Unable to Oauth', error);
+      //console.log('Unable to Oauth', error);
     });
   };
 };
@@ -29,14 +29,23 @@ export var startRegister = (email, encryptedPassword, username) => {
     return firebase.auth().createUserWithEmailAndPassword(email, encryptedPassword).then(
       ()=>{
         Helper.toast('You have registered succesfully!');
-        dispatch(saveUsername(username));
+        //Save Username
+        var user = firebase.auth().currentUser;
+        user.updateProfile({
+          displayName: username,
+        }).then(function() {
+          //console.log('saved displayName to DB');
+        }, function(error) {
+          //console.log('Error saving displayName to DB', error);
+        });
       }, (error)=>{
-      console.log('Unable to Register', error);
+      //console.log('Unable to Register', error);
       Helper.toast('Unable to Register - please try again!');
     });
   };
 };
 
+/*
 export var saveUsername = (username) => {
   var user = firebase.auth().currentUser;
   user.updateProfile({
@@ -47,7 +56,7 @@ export var saveUsername = (username) => {
     console.log('Error saving displayName to DB', error);
   });
 }
-
+*/
 
 export var startLogin = (email, encryptedPassword) => {
   return (dispatch, getState) => {
@@ -55,7 +64,7 @@ export var startLogin = (email, encryptedPassword) => {
       ()=>{
         Helper.toast('You have logged in succesfully!');
       }).catch((error)=>{
-      console.log('Unable to Login', error);
+      //console.log('Unable to Login', error);
       Helper.toast('Could not log you in - please check your Email and Password!');
     });
   };

@@ -31,7 +31,7 @@ export var Main = React.createClass({
 					 }
 		          );
 		        } catch (e){
-		          console.log(e);
+		          //console.log(e);
 		        }
 		      }
 	   		})
