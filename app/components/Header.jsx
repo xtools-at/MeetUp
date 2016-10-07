@@ -46,7 +46,7 @@ export var Header = React.createClass({
     	function renderLinks(self){
 			if (user) {
 			 return(
-			    <ul className="right hide-on-med-and-down">
+			    <ul className="right hide-on-med-and-down" onClick={self.untoggleMap}>
 					<li><a className="waves-effect" href="#/add"><i className="material-icons left">add</i>Add Event</a></li>
 			        <li><a className="waves-effect" href="#/" onClick={self.onLogout}><i className="material-icons left">close</i>Logout</a></li>
 			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank"><i className="material-icons left">code</i>Fork on Github</a></li>
@@ -54,7 +54,7 @@ export var Header = React.createClass({
 			 );
 			} else {
 				return(
-			      <ul className="right hide-on-med-and-down">
+			      <ul className="right hide-on-med-and-down" onClick={self.untoggleMap}>
 					<li><a className="waves-effect" href="#/login"><i className="material-icons left">account_circle</i>Login</a></li>
 			        <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank"><i className="material-icons left">code</i>Fork on Github</a></li>
 			      </ul>
