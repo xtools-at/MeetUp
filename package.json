@@ -1,7 +1,7 @@
 {
   "name": "MeetUp",
   "version": "1.0.0",
-  "description": "Event planer app for Udacity nd802",
+  "description": "Event planer app project for Udacity Senior Web Developer Nanodegree, using React, Redux, Node.js, Firebase and Materialize.css",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test karma start",
@@ -9,7 +9,11 @@
     "start": "npm run build && node server.js"
   },
   "author": "Martin Kainzbauer",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xtools-at/MeetUp.git"
+  },
+  "license": "GNU GPLv3",
   "dependencies": {
     "axios": "^0.9.1",
     "babel-core": "^6.5.1",

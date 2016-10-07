@@ -21,8 +21,7 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       '$': 'jquery',
-      'jQuery': 'jquery',
-      'Materialize': 'materialize-css/dist/js/materialize.min'
+      'jQuery': 'jquery'
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {

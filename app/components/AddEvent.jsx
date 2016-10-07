@@ -15,7 +15,7 @@ export var AddEvent = React.createClass({
     autocomplete.addListener('place_changed', () => {
       //this happens when autocomplete gets clicked
       const place = autocomplete.getPlace();
-      console.log('Place from Autocomplete:', place);
+      //console.log('Place from Autocomplete:', place);
       if (!place.geometry){
         return;
       } else {
@@ -28,8 +28,7 @@ export var AddEvent = React.createClass({
         }
 
         //store the coords
-        console.log('Coords from Autocomplete:', place.geometry.location.lat(), place.geometry.location.lng());
-        //latLng = ''+place.geometry.location.lat()+','+place.geometry.location.lng();
+        //console.log('Coords from Autocomplete:', place.geometry.location.lat(), place.geometry.location.lng());
         $('#event_lat').val(''+place.geometry.location.lat());
         $('#event_lng').val(''+place.geometry.location.lng());
       }
@@ -39,26 +38,35 @@ export var AddEvent = React.createClass({
   geocodeAddress(){
     var {google} = this.props;
     const geocoder = new google.maps.Geocoder();
+    //wait for autocomplete to poulate field
+    setTimeout(function(){
+      //var address = this.refs.event_address.value;
+      var address = $('#event_address').val();
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          
+          if (!results[0].partial_match && results[0].geometry.location_type != "APPROXIMATE") {
+            //Address accurate!
+            $('#event_address').next('label').attr('data-success','');
+          } else {
+            $('#event_address').next('label').attr('data-success','Please try to be more accurate by adding Street and Housenumber (We\'ll store your Event anyways!)');
+          }
+          
+          $('#event_lat').val(''+results[0].geometry.location.lat());
+          $('#event_lng').val(''+results[0].geometry.location.lng());
 
-    var address = this.refs.events_address.value;
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        
-        this.setAddressAccurate(!results[0].partial_match);
-        $('#event_lat').val(''+results[0].geometry.location.lat());
-        $('#event_lng').val(''+results[0].geometry.location.lng());
+          //console.log('geocoding success', results[0]);
 
-        console.log('geocoding success', results[0].geometry.location);
-
-      } else {
-        console.log('geocoding failed', status);
-        this.setAddressAccurate(false);
-      }
-    });
+        } else {
+          //console.log('geocoding failed', status);
+          $('#event_address').next('label').attr('data-success','Please try to be more accurate by adding Street and Housenumber (We\'ll store your Event anyways!)');
+        }
+      });
+    },300);
   },
 
-  setAddressAccurate(good){
-    if (good) {
+  setAddressAccurate(isGood){
+    if (isGood){
       $('#event_address').next('label').attr('data-success','');
     } else {
       $('#event_address').next('label').attr('data-success','Please try to be more accurate by adding Street and Housenumber (We\'ll store your Event anyways!)');
@@ -69,11 +77,13 @@ export var AddEvent = React.createClass({
     this.initAutocomplete(nextProps);
   },
 
-  startDateChanged() {
+  dateChanged() {
     var startTime = this.refs.event_datetime_start.value;
     var endTime = this.refs.event_datetime_end.value;
     var endTimeNode = ReactDOM.findDOMNode(this.refs.event_datetime_end);
-    //set min-Attribute of EndTime to StartTime
+    var startTimeNode = ReactDOM.findDOMNode(this.refs.event_datetime_start);
+
+    //set min-Attribute of EndTime to entered StartTime
     if (startTime && startTime != ''){
       $(endTimeNode).attr('min',startTime);
       //if EndTime < StartTime, reset EndTime to StartTime
@@ -81,18 +91,12 @@ export var AddEvent = React.createClass({
         $(endTimeNode).val(startTime);
       }
     }
-  },
-
-  endDateChanged() {
-    var startTime = this.refs.event_datetime_start.value;
-    var endTime = this.refs.event_datetime_end.value;
-    var startTimeNode = ReactDOM.findDOMNode(this.refs.event_datetime_start);
-    //set max-Attribute of StartTime to EndTime
-    $(startTimeNode).attr('max',endTime);
-    //if EndTime < StartTime, reset StartTime to EndTime
-    //if (!moment(endTime).isBefore(startTime)){
-      //$(startTimeNode).val(endTime);
-    //}
+    /*
+    //set max-Attribute of StartTime to entered EndTime
+    if (endTime && endTime != ''){
+      $(startTimeNode).attr('max',endTime);
+    }
+    */
   },
 
   onSubmit(ev) {
@@ -182,7 +186,7 @@ export var AddEvent = React.createClass({
     			<div className="input-field col s12">
      				<input type="datetime-local" 
               onBlur={this.valiDate} 
-              className="validate xx" 
+              className="validate" 
               defaultValue={moment().format('YYYY-MM-DDTHH:mm')} 
               min={moment().format('YYYY-MM-DDTHH:mm')} 
               id="event_datetime_start" 
@@ -190,7 +194,7 @@ export var AddEvent = React.createClass({
               placeholder="" 
               name="start" 
               autoComplete="start" 
-              onChange={this.startDateChanged}
+              onChange={this.dateChanged}
               required/>
       			<label htmlFor="event_datetime_start" className="active" data-error="Must be in the future">When does it start?</label>
    				</div>
@@ -205,7 +209,7 @@ export var AddEvent = React.createClass({
               placeholder="" 
               name="end" 
               autoComplete="end" 
-              onChange={this.endDateChanged}/>
+              onChange={this.dateChanged}/>
       			<label htmlFor="event_datetime_end" className="active" data-error="Can not be before beginning">...and when does it end? (optional)</label>
    				</div>
 
