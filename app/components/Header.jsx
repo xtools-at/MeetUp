@@ -75,7 +75,7 @@ export var Header = React.createClass({
 						    <li><a className="waves-effect" href="#/add" onClick={self.hideNav}><i className="material-icons">add</i>Add Event</a></li>
 						    <li><a className="waves-effect" href="#/" onClick={self.onLogout}><i className="material-icons">close</i>Logout</a></li>
 						    <li><div className="divider"></div></li>
-						    <li><a className="waves-effect" href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank"><i className="material-icons">code</i>Fork on Github</a></li>
+						    <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank"><i className="material-icons">code</i>Fork on Github</a></li>
 					    </ul>
 					);
 				} else {
@@ -87,7 +87,7 @@ export var Header = React.createClass({
 						    </div></li>
 						    <li><a className="waves-effect" href="#/login" onClick={self.hideNav}><i className="material-icons">account_circle</i>Login</a></li>
 				        	<li><div className="divider"></div></li>
-						    <li><a className="waves-effect" href="https://github.com/xtools-at/nd802-1-MeetUp" target="_blank"><i className="material-icons">code</i>Fork on Github</a></li>
+						    <li><a className="waves-effect" href="https://github.com/xtools-at/MeetUp" target="_blank"><i className="material-icons">code</i>Fork on Github</a></li>
 					    </ul>
 					);
 				}
