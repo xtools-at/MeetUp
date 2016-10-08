@@ -58,6 +58,7 @@ export var AddEvent = React.createClass({
           
           $('#event_lat').val(''+results[0].geometry.location.lat());
           $('#event_lng').val(''+results[0].geometry.location.lng());
+          $('#event_address').val(''+results[0].formatted_address);
 
           //console.log('geocoding success', results[0]);
 
