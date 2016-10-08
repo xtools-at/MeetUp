@@ -49,7 +49,7 @@ export var Event = React.createClass({
 		}
 
 		var isEventActive = (id == this.props.activeEvent) ? 'card horizontal teal lighten-4' : 'card horizontal';
-		var randomImageSrc = "http://lorempixel.com/200/380/city/"+index;
+		var randomImageSrc = "https://loremflickr.com/200/380/city?random="+index;
 
 		
 
