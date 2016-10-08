@@ -6,6 +6,7 @@ import {GoogleApiWrapper} from 'google-maps-react';
 
 import firebase from 'app/firebase/';
 import * as actions from 'actions';
+import Helper from 'Helper';
 
 export var AddEvent = React.createClass({
 
@@ -39,17 +40,20 @@ export var AddEvent = React.createClass({
     var {google} = this.props;
     const geocoder = new google.maps.Geocoder();
     //wait for autocomplete to poulate field
+    var self = this;
     setTimeout(function(){
-      //var address = this.refs.event_address.value;
-      var address = $('#event_address').val();
+      var address = self.refs.event_address.value;
+      //var address = $('#event_address').val();
       geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           
           if (!results[0].partial_match && results[0].geometry.location_type != "APPROXIMATE") {
             //Address accurate!
-            $('#event_address').next('label').attr('data-success','');
+            self.setAddressAccurate(true);
+            //$('#event_address').next('label').attr('data-success','');
           } else {
-            $('#event_address').next('label').attr('data-success','Please try to be more accurate by adding Street and Housenumber (We\'ll store your Event anyways!)');
+            self.setAddressAccurate(false);
+            //$('#event_address').next('label').attr('data-success','Please try to be more accurate by adding Street and Housenumber (We\'ll store your Event anyways!)');
           }
           
           $('#event_lat').val(''+results[0].geometry.location.lat());
@@ -115,6 +119,15 @@ export var AddEvent = React.createClass({
         this.refs.event_host.value, 
         this.refs.event_guests.value
       ))
+    } else {
+      $('input').each(function(i, el){
+        if (el.checkValidity()){
+          $(el).addClass('valid').removeClass('invalid');
+        } else {
+          $(el).addClass('invalid').removeClass('valid');
+        }
+      });
+      Helper.toast('Something is wrong up there, please check your Input!');
     }
   },
 

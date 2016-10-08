@@ -5,6 +5,7 @@ import crypto from 'crypto';
 //import {githubProvider, googleProvider} from 'app/firebase/';
 
 import * as actions from 'actions';
+import Helper from 'Helper';
 
 export var Login = React.createClass({
   /*
@@ -32,6 +33,8 @@ export var Login = React.createClass({
       var encryptedPassword = crypto.createHash('sha256').update(this.refs.user_password.value).digest('hex');
       //console.log('onRegister called', email, name, encryptedPassword);
       dispatch(actions.startRegister(email, encryptedPassword, name));
+    } else {
+      this.validateAll();
     }
   },
 
@@ -43,7 +46,20 @@ export var Login = React.createClass({
       var encryptedPassword = crypto.createHash('sha256').update(this.refs.user_password.value).digest('hex');
       //console.log('onLogin called', email, encryptedPassword);
       dispatch(actions.startLogin(email, encryptedPassword));
+    } else {
+      this.validateAll();
     }
+  },
+
+  validateAll(){
+    $('input').each(function(i, el){
+      if (el.checkValidity()){
+        $(el).addClass('valid').removeClass('invalid');
+      } else {
+        $(el).addClass('invalid').removeClass('valid');
+      }
+    });
+    Helper.toast('Something is wrong up there, please check your Input!');
   },
 
   onValidate(ev) {

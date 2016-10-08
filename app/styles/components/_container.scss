@@ -11,24 +11,38 @@
 main {
   transition: all 0.3s ease-out 0s;
 
+  @media #{$small-and-down} {
+    width:100%;
+  }
+
+  @media #{$medium-only} {
+    width:590px;
+  }
+
+  @media #{$large-and-up} {
+    width:650px;
+  }
+
   .card-panel {
     max-height: calc(100vh - 100px);
     overflow-y: scroll;
 
-    @media #{$small-and-down} {
-      min-height:400px;
+    /*Mobile Keyboard Fix*/
+    @media only screen and (max-height : 400px) {
+      min-height:75vh;
     }
   }
 
 }
 
-/*Push Container on Mobile*/
+/*Push Container*/
 
 .row main.col.push {
   right: -100% !important;
 }
 
 
+/**Event Form Headings*/
 #event_form {
   h2 {
     margin-top: 1.4rem;

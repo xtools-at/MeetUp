@@ -1,4 +1,25 @@
 .fixed-action-btn {
 	bottom: 25px;
 	right: 25px;
+
+	.btn-floating.btn-large {
+		transition: all 0.2s ease-out 0s;
+
+		/*Mobile Keyboard Fix*/
+	    @media only screen and (max-height : 400px) {
+	    	width: 0px;
+	  		height: 0px;
+	    }
+	   
+
+	i {
+	   	transition: all 0.2s ease-out 0s;
+	   	
+	   	/*Mobile Keyboard Fix*/
+   		@media only screen and (max-height : 400px) {
+   			line-height: 0px;
+    	}
+	   	
+	   }
+	}
 }
