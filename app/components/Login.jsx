@@ -161,11 +161,10 @@ export var Login = React.createClass({
               <input type="date" 
                 onBlur={this.valiDate} 
                 className="validate" 
-                defaultValue="1980-01-01" 
                 max={moment().format('YYYY-MM-DD')} 
                 min="1900-01-01"
                 id="add_birthday" 
-                placeholder=""/>
+                placeholder="31.01.1980"/>
               <label htmlFor="add_birthday" className="active" data-error="Wait... what? Not really!">When is your Birthday</label>
             </div>
 
