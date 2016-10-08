@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import * as Redux from 'react-redux';
 import crypto from 'crypto';
+import moment from 'moment';
 //import {githubProvider, googleProvider} from 'app/firebase/';
 
 import * as actions from 'actions';
@@ -161,9 +162,11 @@ export var Login = React.createClass({
                 onBlur={this.valiDate} 
                 className="validate" 
                 defaultValue="1980-01-01" 
+                max={moment().format('YYYY-MM-DD')} 
+                min="1900-01-01"
                 id="add_birthday" 
                 placeholder=""/>
-              <label htmlFor="add_birthday" className="active">When is your Birthday</label>
+              <label htmlFor="add_birthday" className="active" data-error="Wait... what? Not really!">When is your Birthday</label>
             </div>
 
             <div className="input-field col s12">
@@ -193,6 +196,21 @@ export var Login = React.createClass({
                 <option value="Oh come on..." />
               </datalist>
               <label htmlFor="add_tabs" className="active">Tabs or Spaces?</label>
+            </div>
+
+            <div className="input-field col s12">
+              <input type="text" list="add_framework_list" id="add_framework" placeholder="React" className="validate"/>
+              <datalist id="add_framework_list">
+                <option value="React" />
+                <option value="Angular" />
+                <option value="Meteor" />
+                <option value="jQuery" />
+                <option value="Bootstrap" />
+                <option value="Foundation" />
+                <option value="Other" />
+                <option value="Why did you not include {...}.js?" />
+              </datalist>
+              <label htmlFor="add_tabs" className="active">Favourite Front-End Framework?</label>
             </div>
             
           </div>
