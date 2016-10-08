@@ -165,8 +165,8 @@ export var AddEvent = React.createClass({
       			<label htmlFor="event_title" className="active">Title of your Event</label>
           </div>
           <div className="input-field col s12">
-     				<input onBlur={this.onValidate} type="text" className="validate" placeholder="The hottest party on this planet" id="event_description" ref="event_description" autoComplete="description" name="description" required/>
-      			<label htmlFor="event_description" className="active">Tell me something about your Event</label>
+     				<input onBlur={this.onValidate} type="text" className="validate" placeholder="The hottest party on this planet" id="event_description" ref="event_description" autoComplete="description" name="description"/>
+      			<label htmlFor="event_description" className="active">Tell me something about your Event (optional)</label>
      			</div>
           <div className="input-field col s12">
 	     			<input onBlur={this.onValidate} type="text" list="event_type_list" placeholder="Party" id="event_type" ref="event_type" autoComplete="type" name="type" className="autocomplete validate" autoComplete="type" required/>
